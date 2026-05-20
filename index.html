@@ -1,632 +1,1664 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f472b6">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="For My Dear">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    <title>For My Dear ❤️</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap');
-        body {
-            font-family: 'Prompt', sans-serif;
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .pulse-heart {
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        #video-container {
-            position: relative;
-            width: 100%;
-            max-width: 640px;
-            margin: 0 auto;
-        }
-        #sharedScreen {
-            width: 100%;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .install-prompt {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #f472b6, #ec4899);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(244, 114, 182, 0.4);
-            z-index: 1000;
-            display: none;
-            max-width: 90%;
-            text-align: center;
-        }
-        .install-prompt.show {
-            display: block;
-            animation: slideUp 0.5s ease-out;
-        }
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#e11d48">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="For My Dear">
+<meta name="description" content="แอพรักของเรา ❤️">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>For My Dear 💕</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Prompt',sans-serif;background:#fff0f5;min-height:100vh;overscroll-behavior:none}
+:root{
+  --pink:#e11d48;--pink-l:#fda4af;--pink-ll:#fff1f2;
+  --rose:#f43f5e;--rose-d:#9f1239;
+  --red:#ef4444;--purple:#a855f7;--indigo:#6366f1;
+  --teal:#14b8a6;--amber:#f59e0b;--green:#22c55e;
+  --blue:#3b82f6;--gray:#6b7280;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#fda4af;border-radius:9999px}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+@keyframes confettiFall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes ripple{0%{transform:scale(0);opacity:1}100%{transform:scale(4);opacity:0}}
+
+.fade-up{animation:fadeUp .4s ease both}
+.pulse-heart{animation:pulse 1.8s ease-in-out infinite}
+.float{animation:float 3s ease-in-out infinite}
+.slide-down{animation:slideDown .3s ease both}
+
+/* ── Glassmorphism cards ── */
+.glass{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6)}
+.card{background:#fff;border-radius:20px;box-shadow:0 2px 16px rgba(225,29,72,.08);padding:1.25rem;margin-bottom:1rem}
+.card-sm{background:#fff;border-radius:16px;box-shadow:0 1px 8px rgba(225,29,72,.06);padding:1rem}
+
+/* ── Gradient text ── */
+.grad-text{background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── Buttons ── */
+.btn-primary{background:linear-gradient(135deg,var(--pink),var(--rose));color:#fff;border:none;border-radius:9999px;padding:.65rem 1.5rem;font-family:'Prompt',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(225,29,72,.3)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(225,29,72,.4)}
+.btn-primary:active{transform:scale(.97)}
+.btn-ghost{background:var(--pink-ll);color:var(--pink);border:1.5px solid #fecdd3;border-radius:9999px;padding:.5rem 1.2rem;font-family:'Prompt',sans-serif;font-size:.85rem;cursor:pointer;transition:all .2s}
+.btn-ghost:hover{background:#ffe4e6}
+.btn-icon{width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:all .2s}
+
+/* ── Input ── */
+.inp{width:100%;border:1.5px solid #fecdd3;border-radius:12px;padding:.65rem 1rem;font-family:'Prompt',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;background:#fff}
+.inp:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(225,29,72,.1)}
+textarea.inp{resize:vertical;min-height:80px}
+
+/* ── Navbar ── */
+#navbar{background:linear-gradient(135deg,var(--pink),#fb7185);position:sticky;top:0;z-index:100;padding:.8rem 1rem;border-radius:0 0 24px 24px;box-shadow:0 4px 20px rgba(225,29,72,.25)}
+
+/* ── Bottom nav ── */
+#bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #fce7f3;z-index:100;padding:.5rem 0 max(.5rem,env(safe-area-inset-bottom)) 0}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:.4rem .2rem;border:none;background:none;cursor:pointer;transition:all .2s;border-radius:12px;position:relative;min-width:0}
+.nav-btn .nav-icon{font-size:1.4rem;transition:transform .2s}
+.nav-btn .nav-label{font-family:'Prompt',sans-serif;font-size:.65rem;color:#9ca3af;font-weight:400;transition:color .2s}
+.nav-btn.active .nav-icon{transform:scale(1.15)}
+.nav-btn.active .nav-label{color:var(--pink);font-weight:500}
+.nav-dot{position:absolute;top:4px;right:50%;transform:translateX(14px);width:7px;height:7px;background:var(--pink);border-radius:50%;display:none}
+.nav-dot.show{display:block}
+
+/* ── Tab sections ── */
+.tab-section{display:none;padding:1rem 1rem 6rem 1rem}
+.tab-section.active{display:block}
+
+/* ── Progress bar ── */
+.prog-bar{height:8px;background:#fce7f3;border-radius:9999px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:9999px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+
+/* ── Mood buttons ── */
+.mood-btn{font-size:2.2rem;cursor:pointer;border:none;background:none;padding:.5rem;border-radius:12px;transition:all .2s;position:relative}
+.mood-btn:hover{transform:scale(1.2)}
+.mood-btn.selected{transform:scale(1.3);background:#fff0f5;border-radius:50%}
+
+/* ── Memory photos ── */
+#photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.photo-item{aspect-ratio:1;border-radius:12px;overflow:hidden;position:relative;cursor:pointer}
+.photo-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.photo-item:hover img{transform:scale(1.05)}
+.photo-del{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.5);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:.75rem;cursor:pointer;display:none}
+.photo-item:hover .photo-del{display:flex;align-items:center;justify-content:center}
+
+/* ── Love letter ── */
+.letter-bg{background:linear-gradient(135deg,#fff7ed,#fdf2f8);border:1px solid #fecdd3;border-radius:20px;padding:1.5rem;position:relative;overflow:hidden}
+.letter-bg::before{content:"";position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(244,63,94,.1),transparent);border-radius:50%}
+
+/* ── Countdown ── */
+.countdown-box{text-align:center;background:linear-gradient(135deg,var(--pink-ll),#f3e8ff);border-radius:16px;padding:1rem;flex:1}
+.countdown-num{font-size:1.8rem;font-weight:700;color:var(--pink);line-height:1}
+.countdown-label{font-size:.7rem;color:#9ca3af;margin-top:4px}
+
+/* ── Wishlist / Bucket ── */
+.wish-item{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:#fff;border-radius:12px;border:1px solid #fce7f3;margin-bottom:.5rem;transition:all .2s}
+.wish-item.done{opacity:.6;text-decoration:line-through}
+.wish-item:hover{border-color:#fda4af}
+
+/* ── Music player ── */
+.song-bar{height:4px;background:#fce7f3;border-radius:9999px;cursor:pointer;position:relative}
+.song-progress{height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:9999px;pointer-events:none}
+
+/* ── Recipe card ── */
+.recipe-card{border-radius:16px;overflow:hidden;border:1px solid #fce7f3}
+.recipe-img{background:linear-gradient(135deg,#fce7f3,#ede9fe);height:120px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+
+/* ── Notification banner ── */
+.notif-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,var(--pink),var(--rose));color:#fff;padding:.75rem 1rem;text-align:center;font-size:.9rem;transform:translateY(-100%);transition:transform .4s ease}
+.notif-banner.show{transform:translateY(0)}
+
+/* ── Install prompt ── */
+#install-prompt{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);z-index:200;display:none;width:90%;max-width:380px}
+#install-prompt.show{display:block;animation:slideDown .4s ease}
+
+/* ── Ripple ── */
+.ripple-container{position:relative;overflow:hidden}
+.ripple-wave{position:absolute;border-radius:50%;background:rgba(255,255,255,.4);width:10px;height:10px;transform:scale(0);animation:ripple .6s linear}
+
+/* ── Stars rating ── */
+.stars span{font-size:1.5rem;cursor:pointer;transition:transform .15s}
+.stars span:hover,.stars span.lit{transform:scale(1.2)}
+
+/* ── Heartfall canvas ── */
+#heartfall-canvas{position:fixed;top:0;left:0;pointer-events:none;z-index:9998}
+
+/* ── Date night spinner ── */
+.spin-wheel{border-radius:50%;border:4px solid #fecdd3}
+
+/* ── Fitness tracker ── */
+.ring-svg circle{fill:none;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+
+/* ── Breathing exercise ── */
+.breath-circle{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--pink-ll),#ede9fe);display:flex;align-items:center;justify-content:center;margin:0 auto;transition:transform 4s ease,background 4s ease;font-size:2.5rem}
+
+/* ── Modal overlay ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;padding:1.5rem;max-height:85vh;overflow-y:auto;animation:fadeUp .3s ease}
+
+/* ── Love quiz ── */
+.quiz-opt{display:block;width:100%;text-align:left;border:1.5px solid #fce7f3;border-radius:12px;padding:.75rem 1rem;margin-bottom:.5rem;font-family:'Prompt',sans-serif;font-size:.9rem;cursor:pointer;transition:all .2s;background:#fff}
+.quiz-opt:hover{border-color:var(--pink);background:var(--pink-ll)}
+.quiz-opt.correct{background:#f0fdf4;border-color:#22c55e;color:#166534}
+.quiz-opt.wrong{background:#fff1f2;border-color:#e11d48;color:#9f1239}
+
+/* ── Love test result ── */
+.result-bar{height:10px;background:#fce7f3;border-radius:9999px;overflow:hidden;margin:8px 0}
+.result-fill{height:100%;border-radius:9999px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width 1s ease}
+
+/* ── Sticker pack ── */
+.sticker-item{font-size:2rem;cursor:pointer;padding:.3rem;border-radius:8px;transition:transform .15s;display:inline-block}
+.sticker-item:hover{transform:scale(1.3)}
+
+/* ── Letter editor ── */
+#letter-preview{white-space:pre-wrap;font-family:'Prompt',sans-serif;line-height:1.8;color:#374151;font-size:.9rem}
+
+/* ── Virtual date ── */
+.vd-scene{border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#1e1b4b,#312e81);height:180px;display:flex;align-items:center;justify-content:center;position:relative}
+.vd-scene .stars-bg{position:absolute;inset:0;overflow:hidden}
+
+/* ── Health tip card ── */
+.tip-card{border-radius:16px;padding:1rem;display:flex;align-items:flex-start;gap:.75rem;border:1px solid transparent}
+
+/* ── Color picker palette ── */
+.color-swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .15s}
+.color-swatch:hover,.color-swatch.sel{transform:scale(1.25);border-color:#374151}
+
+/* ── Scroll to top ── */
+#scroll-top{position:fixed;bottom:90px;right:16px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--rose));border:none;color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 14px rgba(225,29,72,.3);display:none;align-items:center;justify-content:center;z-index:99;transition:all .2s}
+#scroll-top.show{display:flex}
+#scroll-top:hover{transform:translateY(-2px)}
+
+/* Confetti */
+.confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;animation:confettiFall 3s ease forwards;pointer-events:none;z-index:9999}
+</style>
 </head>
-<body class="text-gray-800 min-h-screen flex flex-col">
+<body>
 
-    <!-- Install Prompt -->
-    <div id="installPrompt" class="install-prompt">
-        <div class="font-semibold mb-2">💕 ติดตั้งแอพบนมือถือ</div>
-        <div class="text-sm mb-3 opacity-90">เพื่อใช้งานได้สะดวกยิ่งขึ้น</div>
-        <div class="flex gap-2 justify-center">
-            <button onclick="installApp()" class="bg-white text-pink-500 px-4 py-2 rounded-lg font-medium text-sm hover:bg-pink-50 transition">
-                ติดตั้งเลย
-            </button>
-            <button onclick="dismissInstallPrompt()" class="bg-pink-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-pink-700 transition">
-                ภายหลัง
-            </button>
-        </div>
+<!-- Notification Banner -->
+<div id="notif-banner" class="notif-banner">
+  <span id="notif-text">🔔 แจ้งเตือน</span>
+</div>
+
+<!-- Heartfall Canvas -->
+<canvas id="heartfall-canvas"></canvas>
+
+<!-- Install Prompt -->
+<div id="install-prompt">
+  <div class="glass" style="border-radius:20px;padding:1.2rem;box-shadow:0 8px 32px rgba(225,29,72,.2)">
+    <div style="font-size:1.5rem;text-align:center;margin-bottom:.5rem">💕</div>
+    <div style="font-weight:600;color:var(--pink);text-align:center;margin-bottom:.25rem">ติดตั้งแอพบนมือถือ</div>
+    <div style="font-size:.8rem;color:#9ca3af;text-align:center;margin-bottom:.75rem">เปิดได้เร็วขึ้น ใช้ได้แม้ไม่มีเน็ต</div>
+    <div style="display:flex;gap:.5rem">
+      <button class="btn-primary" style="flex:1;font-size:.85rem" onclick="installApp()">ติดตั้งเลย 📱</button>
+      <button class="btn-ghost" style="font-size:.85rem" onclick="document.getElementById('install-prompt').classList.remove('show')">ภายหลัง</button>
     </div>
+  </div>
+</div>
 
-    <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-pink-400 to-rose-400 text-white p-4 shadow-lg rounded-b-3xl">
-        <div class="max-w-md mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-semibold flex items-center gap-2">
-                <span class="pulse-heart">💖</span> 
-                <span>To My Dear</span>
-            </h1>
-            <div class="text-sm opacity-90" id="current-date"></div>
-        </div>
-    </nav>
+<!-- Scroll to top -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow max-w-md mx-auto w-full p-4 relative pb-24">
-        
-        <!-- Tab 1: คำบอกรัก (Love Messages) -->
-        <section id="tab-love" class="fade-in space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-lg text-center border-t-4 border-pink-400">
-                <h2 class="text-2xl font-semibold text-pink-500 mb-4">ข้อความถึงเดียร์ 💌</h2>
-                <p id="love-message" class="text-lg text-gray-700 min-h-[80px] flex items-center justify-center italic px-4">
-                    "กำลังโหลดความรัก..."
-                </p>
-                <button onclick="randomMessage()" class="mt-4 bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white px-6 py-3 rounded-full transition duration-300 text-sm font-medium shadow-md">
-                    บอกรักอีกรอบ 🔄
-                </button>
-            </div>
-
-            <!-- Love Stats -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h3 class="text-lg font-semibold text-pink-500 mb-3">สถิติความรัก 📈</h3>
-                <div class="grid grid-cols-2 gap-4 text-center">
-                    <div class="bg-pink-50 p-3 rounded-xl">
-                        <div class="text-2xl font-bold text-pink-500" id="days-together">0</div>
-                        <div class="text-xs text-gray-600">วันที่อยู่ด้วยกัน</div>
-                    </div>
-                    <div class="bg-rose-50 p-3 rounded-xl">
-                        <div class="text-2xl font-bold text-rose-500" id="love-count">0</div>
-                        <div class="text-xs text-gray-600">ครั้งที่บอกรัก</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PWA Status -->
-            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-2xl shadow-sm text-center">
-                <div class="text-sm text-gray-600 mb-2">สถานะแอพ</div>
-                <div id="pwa-status" class="text-lg font-semibold text-purple-600">
-                    <span id="online-status">🟢 ออนไลน์</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab 2: Checklist (ภารกิจเติมความหวาน) -->
-        <section id="tab-checklist" class="fade-in space-y-4 hidden">
-            <div class="flex justify-between items-center mb-2">
-                <h2 class="text-xl font-semibold text-pink-500">Checklist วันนี้ 📝</h2>
-                <button onclick="resetChecklist()" class="text-xs text-gray-500 hover:text-pink-500 transition">
-                    รีเซ็ต
-                </button>
-            </div>
-            
-            <div class="bg-white p-5 rounded-2xl shadow-lg space-y-3">
-                <label class="flex items-center space-x-3 cursor-pointer hover:bg-pink-50 p-2 rounded-lg transition">
-                    <input type="checkbox" id="check-water" onchange="saveChecklist()" class="w-5 h-5 text-pink-500 rounded border-gray-300 focus:ring-pink-400">
-                    <span class="text-gray-700 flex-1">ดื่มน้ำครบ 8 แก้วแล้ว 💧</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer hover:bg-pink-50 p-2 rounded-lg transition">
-                    <input type="checkbox" id="check-meal" onchange="saveChecklist()" class="w-5 h-5 text-pink-500 rounded border-gray-300 focus:ring-pink-400">
-                    <span class="text-gray-700 flex-1">กินข้าวตรงเวลา 🍱</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer hover:bg-pink-50 p-2 rounded-lg transition">
-                    <input type="checkbox" id="check-smile" onchange="saveChecklist()" class="w-5 h-5 text-pink-500 rounded border-gray-300 focus:ring-pink-400">
-                    <span class="text-gray-700 flex-1">ยิ้มให้ตัวเองในกระจก 1 ที 😊</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer hover:bg-pink-50 p-2 rounded-lg transition">
-                    <input type="checkbox" id="check-love" onchange="saveChecklist()" class="w-5 h-5 text-pink-500 rounded border-gray-300 focus:ring-pink-400">
-                    <span class="text-gray-700 flex-1">บอกรักเค้าแล้ว ❤️</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer hover:bg-pink-50 p-2 rounded-lg transition">
-                    <input type="checkbox" id="check-exercise" onchange="saveChecklist()" class="w-5 h-5 text-pink-500 rounded border-gray-300 focus:ring-pink-400">
-                    <span class="text-gray-700 flex-1">ออกกำลังกายแล้ว 🏃‍♀️</span>
-                </label>
-                <label class="flex items-center space-x-3 cursor-pointer hover:bg-pink-50 p-2 rounded-lg transition">
-                    <input type="checkbox" id="check-rest" onchange="saveChecklist()" class="w-5 h-5 text-pink-500 rounded border-gray-300 focus:ring-pink-400">
-                    <span class="text-gray-700 flex-1">พักผ่อนเพียงพอ 😴</span>
-                </label>
-            </div>
-
-            <!-- Progress -->
-            <div class="bg-white p-5 rounded-2xl shadow-lg">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-gray-700">ความคืบหน้า</span>
-                    <span class="text-sm font-bold text-pink-500" id="progress-text">0/6</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                    <div id="progress-bar" class="bg-gradient-to-r from-pink-400 to-rose-400 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tab 3: Mood & Tools (อารมณ์และเครื่องมือ) -->
-        <section id="tab-tools" class="fade-in space-y-6 hidden">
-            <!-- Mood Tracker -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
-                <h2 class="text-lg font-semibold text-pink-500 mb-4">วันนี้เดียร์รู้สึกยังไงบ้าง? 📊</h2>
-                <div class="flex justify-center space-x-4 text-4xl mb-6">
-                    <button class="hover:scale-125 transition transform" onclick="saveMood('happy', '😄')">😄</button>
-                    <button class="hover:scale-125 transition transform" onclick="saveMood('good', '🙂')">🙂</button>
-                    <button class="hover:scale-125 transition transform" onclick="saveMood('tired', '😮‍💨')">😮‍💨</button>
-                    <button class="hover:scale-125 transition transform" onclick="saveMood('sad', '😢')">😢</button>
-                </div>
-                
-                <div class="mt-6 border-t pt-4">
-                    <canvas id="moodChart" style="max-height: 200px;"></canvas>
-                </div>
-            </div>
-
-            <!-- Advanced Features -->
-            <div class="grid grid-cols-2 gap-4">
-                <button onclick="getLocation()" class="bg-gradient-to-br from-red-400 to-pink-500 text-white p-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition flex flex-col items-center">
-                    <span class="text-3xl mb-2">📍</span>
-                    <span class="text-sm font-medium">ดูตำแหน่ง</span>
-                </button>
-                <button onclick="shareScreen()" class="bg-gradient-to-br from-indigo-400 to-purple-500 text-white p-5 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition flex flex-col items-center">
-                    <span class="text-3xl mb-2">📺</span>
-                    <span class="text-sm font-medium">แชร์หน้าจอ</span>
-                </button>
-            </div>
-
-            <!-- Location Display -->
-            <div id="location-info" class="bg-white p-5 rounded-2xl shadow-lg hidden">
-                <h3 class="text-lg font-semibold text-pink-500 mb-3">ตำแหน่งของเดียร์ 📍</h3>
-                <div class="space-y-2 text-sm text-gray-700">
-                    <p><strong>Latitude:</strong> <span id="lat">-</span></p>
-                    <p><strong>Longitude:</strong> <span id="lng">-</span></p>
-                    <p><strong>ความแม่นยำ:</strong> <span id="accuracy">-</span> เมตร</p>
-                </div>
-                <button onclick="openMap()" class="mt-3 w-full bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg transition">
-                    เปิดแผนที่ 🗺️
-                </button>
-            </div>
-
-            <!-- Screen Share Display -->
-            <div id="video-container" class="bg-white p-5 rounded-2xl shadow-lg hidden">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-lg font-semibold text-pink-500">หน้าจอที่แชร์ 📺</h3>
-                    <button onclick="stopSharing()" class="text-xs bg-red-400 hover:bg-red-500 text-white px-3 py-1 rounded-full transition">
-                        หยุด
-                    </button>
-                </div>
-                <video id="sharedScreen" autoplay playsinline></video>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Bottom Navigation (SPA Routing) -->
-    <div class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)] rounded-t-3xl border-t border-pink-100">
-        <div class="max-w-md mx-auto flex justify-around p-3">
-            <button onclick="switchTab('love')" id="btn-love" class="flex flex-col items-center text-pink-500 hover:text-pink-600 transition p-2 active-tab">
-                <span class="text-2xl">💌</span>
-                <span class="text-xs mt-1 font-medium">บอกรัก</span>
-            </button>
-            <button onclick="switchTab('checklist')" id="btn-checklist" class="flex flex-col items-center text-gray-400 hover:text-pink-600 transition p-2">
-                <span class="text-2xl">✅</span>
-                <span class="text-xs mt-1 font-medium">ภารกิจ</span>
-            </button>
-            <button onclick="switchTab('tools')" id="btn-tools" class="flex flex-col items-center text-gray-400 hover:text-pink-600 transition p-2">
-                <span class="text-2xl">⚙️</span>
-                <span class="text-xs mt-1 font-medium">ฟีเจอร์</span>
-            </button>
-        </div>
+<!-- Navbar -->
+<nav id="navbar">
+  <div style="max-width:480px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <span class="pulse-heart" style="font-size:1.4rem">💖</span>
+      <span style="font-weight:600;font-size:1.1rem;color:#fff" id="app-title">For My Dear</span>
     </div>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <span style="font-size:.75rem;color:rgba(255,255,255,.85)" id="nav-date"></span>
+      <button class="btn-icon" style="background:rgba(255,255,255,.2);color:#fff;font-size:1rem" onclick="toggleTheme()" title="เปลี่ยนธีม">🎨</button>
+    </div>
+  </div>
+</nav>
 
-    <!-- JavaScript -->
-    <script>
-        // ========== PWA Installation ==========
-        let deferredPrompt;
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // แสดง install prompt หลังจาก 3 วินาที
-            setTimeout(() => {
-                document.getElementById('installPrompt').classList.add('show');
-            }, 3000);
-        });
+<!-- ════════════════════════════════════════ TABS ════════════════════════════════════════ -->
 
-        async function installApp() {
-            if (!deferredPrompt) {
-                alert('แอพถูกติดตั้งแล้ว หรือเบราว์เซอร์ไม่รองรับ');
-                return;
-            }
+<!-- TAB: HOME (💌) -->
+<section id="tab-home" class="tab-section active">
 
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                console.log('ติดตั้งแอพแล้ว');
-            }
-            
-            deferredPrompt = null;
-            document.getElementById('installPrompt').classList.remove('show');
-        }
+  <!-- Hero love message -->
+  <div class="card fade-up" id="hero-card" style="background:linear-gradient(135deg,#fff1f2,#fdf4ff);border:1px solid #fecdd3;text-align:center;padding:1.5rem">
+    <div class="float" style="font-size:3rem">💌</div>
+    <p id="love-msg" style="font-size:1.05rem;color:#374151;line-height:1.7;min-height:60px;margin:.75rem 0;font-style:italic"></p>
+    <button class="btn-primary" onclick="randomMessage()" id="love-btn">บอกรักอีกรอบ 🔄</button>
+    <div style="margin-top:.75rem;display:flex;justify-content:center;gap:.5rem" id="sticker-bar"></div>
+  </div>
 
-        function dismissInstallPrompt() {
-            document.getElementById('installPrompt').classList.remove('show');
-        }
+  <!-- Stats row -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:1rem">
+    <div class="card-sm" style="text-align:center;padding:.75rem">
+      <div style="font-size:1.5rem;font-weight:700;color:var(--pink)" id="stat-days">0</div>
+      <div style="font-size:.65rem;color:#9ca3af">วันที่อยู่ด้วยกัน</div>
+    </div>
+    <div class="card-sm" style="text-align:center;padding:.75rem">
+      <div style="font-size:1.5rem;font-weight:700;color:var(--purple)" id="stat-love">0</div>
+      <div style="font-size:.65rem;color:#9ca3af">ครั้งที่บอกรัก</div>
+    </div>
+    <div class="card-sm" style="text-align:center;padding:.75rem">
+      <div style="font-size:1.5rem;font-weight:700;color:var(--teal)" id="stat-streak">0</div>
+      <div style="font-size:.65rem;color:#9ca3af">Streak วัน 🔥</div>
+    </div>
+  </div>
 
-        // ========== Service Worker Registration ==========
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(reg => console.log('Service Worker registered'))
-                    .catch(err => console.log('Service Worker registration failed:', err));
-            });
-        }
+  <!-- Countdown anniversary -->
+  <div class="card fade-up" style="background:linear-gradient(135deg,#fdf4ff,#fff1f2)">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">⏰ Countdown ถึงวันสำคัญ</h3>
+    <div id="countdown-display" style="display:flex;gap:.5rem;justify-content:center">
+      <div class="countdown-box"><div class="countdown-num" id="cd-days">--</div><div class="countdown-label">วัน</div></div>
+      <div class="countdown-box"><div class="countdown-num" id="cd-hours">--</div><div class="countdown-label">ชั่วโมง</div></div>
+      <div class="countdown-box"><div class="countdown-num" id="cd-mins">--</div><div class="countdown-label">นาที</div></div>
+      <div class="countdown-box"><div class="countdown-num" id="cd-secs">--</div><div class="countdown-label">วินาที</div></div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:.75rem">
+      <input class="inp" type="date" id="ann-date" placeholder="วันครบรอบ" style="flex:1;font-size:.8rem">
+      <input class="inp" type="text" id="ann-label" placeholder="ชื่อวันสำคัญ" style="flex:1;font-size:.8rem">
+      <button class="btn-ghost" onclick="setAnniversary()" style="padding:.5rem .75rem;font-size:.8rem">ตั้ง</button>
+    </div>
+  </div>
 
-        // ========== Online/Offline Status ==========
-        function updateOnlineStatus() {
-            const statusElement = document.getElementById('online-status');
-            if (navigator.onLine) {
-                statusElement.innerHTML = '🟢 ออนไลน์';
-                statusElement.className = 'text-green-600';
-            } else {
-                statusElement.innerHTML = '🔴 ออฟไลน์';
-                statusElement.className = 'text-red-600';
-            }
-        }
+  <!-- Love letter composer -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">💌 เขียนจดหมายรัก</h3>
+    <div class="letter-bg">
+      <p style="font-size:.75rem;color:#9ca3af;margin-bottom:.5rem">ถึง: เดียร์ที่รัก ❤️</p>
+      <textarea class="inp" id="letter-input" placeholder="เขียนอะไรก็ได้นะ..." style="border:none;background:transparent;padding:.25rem 0;min-height:100px;box-shadow:none"></textarea>
+      <div id="letter-stickers" style="display:flex;flex-wrap:wrap;gap:.25rem;margin:.5rem 0"></div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap">
+      <button class="btn-primary" onclick="saveLetter()" style="flex:1;font-size:.85rem">บันทึก 💾</button>
+      <button class="btn-ghost" onclick="shareLetter()" style="font-size:.85rem">แชร์ 📤</button>
+      <button class="btn-ghost" onclick="openLetterHistory()" style="font-size:.85rem">ประวัติ 📚</button>
+    </div>
+  </div>
 
-        window.addEventListener('online', updateOnlineStatus);
-        window.addEventListener('offline', updateOnlineStatus);
+  <!-- Sticker picker -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">🎀 สติ๊กเกอร์น่ารัก</h3>
+    <div id="sticker-picker" style="display:flex;flex-wrap:wrap;gap:.25rem"></div>
+    <div style="margin-top:.5rem;font-size:.75rem;color:#9ca3af">แตะเพื่อแนบในจดหมาย / กดค้างเพื่อส่งไปที่หน้าหลัก</div>
+  </div>
 
-        // ========== Constants & Variables ==========
-        const messages = [
-            "รักเดียร์นะคับ เป็นห่วงเสมอเลย ❤️",
-            "ขอบคุณที่เดียร์เข้ามาเป็นความสุขในทุกๆ วันของเค้านะ",
-            "เดียร์คือรอยยิ้มที่น่ารักที่สุดของเค้าเลย 😊",
-            "เหนื่อยไหมวันนี้? กอดๆ นะ 🫂",
-            "ไม่ว่าวันไหนก็จะคอยอยู่ข้างๆ เดียร์เสมอนะ",
-            "รักเดียร์เท่าจักรวาลเลย! 🌌",
-            "ตั้งใจทำงาน/เรียนนะ เค้าเป็นกำลังใจให้ ✌️",
-            "วันนี้เดียร์เก่งมากแล้ว พักผ่อนเยอะๆ นะ",
-            "หิวหรือยัง? อย่าลืมหาอะไรอร่อยๆ กินนะ 🍕",
-            "มองไปทางไหนก็คิดถึงแต่เดียร์ 💕",
-            "เดียร์สวยที่สุดในโลกเลย ✨",
-            "ขอบคุณที่เกิดมาเจอกันนะ 💝"
-        ];
+  <!-- Online status & PWA -->
+  <div class="card-sm fade-up" style="display:flex;align-items:center;justify-content:space-between">
+    <span style="font-size:.85rem;color:#6b7280" id="online-status-txt">🟢 ออนไลน์</span>
+    <button class="btn-ghost" onclick="triggerHeartfall()" style="font-size:.85rem">💕 หัวใจตก</button>
+  </div>
 
-        let moodChart = null;
-        let currentLocation = null;
-        let mediaStream = null;
+</section>
 
-        // ========== Date & Stats ==========
-        function updateDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('current-date').innerText = now.toLocaleDateString('th-TH', options);
-        }
+<!-- TAB: MEMORIES (📸) -->
+<section id="tab-memories" class="tab-section">
 
-        function updateStats() {
-            const startDate = new Date('2024-01-01');
-            const today = new Date();
-            const diffTime = Math.abs(today - startDate);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            document.getElementById('days-together').innerText = diffDays;
+  <!-- Photo album -->
+  <div class="card fade-up">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+      <h3 style="font-weight:600;color:var(--pink);font-size:.95rem">📸 อัลบั้มความทรงจำ</h3>
+      <label style="cursor:pointer">
+        <input type="file" accept="image/*" multiple onchange="addPhotos(this)" style="display:none">
+        <span class="btn-ghost" style="font-size:.8rem;padding:.4rem .8rem">+ เพิ่มรูป</span>
+      </label>
+    </div>
+    <div id="photo-grid">
+      <div style="aspect-ratio:1;border-radius:12px;background:#fce7f3;display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;border:2px dashed #fda4af" onclick="document.querySelector('input[type=file]').click()">+</div>
+    </div>
+    <div id="photo-empty" style="text-align:center;padding:1rem;color:#9ca3af;font-size:.85rem;display:none">
+      ยังไม่มีรูปภาพ แตะ + เพื่อเพิ่ม 💕
+    </div>
+  </div>
 
-            let loveCount = parseInt(localStorage.getItem('loveCount') || '0');
-            document.getElementById('love-count').innerText = loveCount;
-        }
+  <!-- Timeline -->
+  <div class="card fade-up">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+      <h3 style="font-weight:600;color:var(--pink);font-size:.95rem">📅 Timeline ความรัก</h3>
+      <button class="btn-ghost" style="font-size:.8rem" onclick="openAddMoment()">+ เพิ่ม</button>
+    </div>
+    <div id="timeline"></div>
+  </div>
 
-        // ========== Love Message ==========
-        function randomMessage() {
-            const msgElement = document.getElementById('love-message');
-            msgElement.style.opacity = 0;
-            
-            setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * messages.length);
-                msgElement.innerText = `"${messages[randomIndex]}"`;
-                msgElement.style.opacity = 1;
-                msgElement.style.transition = "opacity 0.3s ease-in-out";
-                
-                let loveCount = parseInt(localStorage.getItem('loveCount') || '0');
-                loveCount++;
-                localStorage.setItem('loveCount', loveCount);
-                updateStats();
-            }, 300);
-        }
+  <!-- Anniversary milestones -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">🎉 Milestones</h3>
+    <div id="milestones"></div>
+  </div>
 
-        // ========== Checklist ==========
-        function saveChecklist() {
-            const checkboxes = ['water', 'meal', 'smile', 'love', 'exercise', 'rest'];
-            const checklistData = {};
-            let completed = 0;
+</section>
 
-            checkboxes.forEach(id => {
-                const checkbox = document.getElementById(`check-${id}`);
-                checklistData[id] = checkbox.checked;
-                if (checkbox.checked) completed++;
-            });
+<!-- TAB: DAILY (✅) -->
+<section id="tab-daily" class="tab-section">
 
-            localStorage.setItem('checklist_' + getTodayKey(), JSON.stringify(checklistData));
-            updateProgress(completed, checkboxes.length);
-        }
+  <!-- Daily checklist -->
+  <div class="card fade-up">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+      <h3 style="font-weight:600;color:var(--pink);font-size:.95rem">✅ ภารกิจประจำวัน</h3>
+      <button class="btn-ghost" style="font-size:.75rem" onclick="resetChecklist()">รีเซ็ต</button>
+    </div>
+    <div id="checklist-items"></div>
+    <div style="margin-top:.75rem">
+      <div style="display:flex;justify-content:space-between;font-size:.8rem;color:#6b7280;margin-bottom:.25rem">
+        <span>ความคืบหน้า</span>
+        <span id="checklist-prog-txt">0/0</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="checklist-prog" style="width:0%"></div></div>
+    </div>
+    <button class="btn-ghost" onclick="addCustomTask()" style="width:100%;margin-top:.75rem;font-size:.85rem">+ เพิ่มภารกิจ</button>
+  </div>
 
-        function loadChecklist() {
-            const checkboxes = ['water', 'meal', 'smile', 'love', 'exercise', 'rest'];
-            const savedData = localStorage.getItem('checklist_' + getTodayKey());
-            
-            let completed = 0;
-            
-            if (savedData) {
-                const checklistData = JSON.parse(savedData);
-                checkboxes.forEach(id => {
-                    const checkbox = document.getElementById(`check-${id}`);
-                    checkbox.checked = checklistData[id] || false;
-                    if (checkbox.checked) completed++;
-                });
-            }
-            
-            updateProgress(completed, checkboxes.length);
-        }
+  <!-- Mood tracker -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">😊 บันทึกอารมณ์วันนี้</h3>
+    <div style="display:flex;justify-content:space-around;margin-bottom:.75rem">
+      <button class="mood-btn" onclick="saveMood('love','😍','หัวใจจะระเบิด!')" title="รัก">😍</button>
+      <button class="mood-btn" onclick="saveMood('happy','😄','ดีใจที่เดียร์มีความสุข!')" title="มีความสุข">😄</button>
+      <button class="mood-btn" onclick="saveMood('good','🙂','วันธรรมดา ก็รักเหมือนเดิมนะ')" title="โอเค">🙂</button>
+      <button class="mood-btn" onclick="saveMood('tired','😮‍💨','พักก่อนนะ เราอยู่ตรงนี้')" title="เหนื่อย">😮‍💨</button>
+      <button class="mood-btn" onclick="saveMood('sad','😢','โอ๋ๆ อย่าร้องนะ 🫂')" title="เศร้า">😢</button>
+      <button class="mood-btn" onclick="saveMood('angry','😤','หายใจลึกๆ นะ เดียร์')" title="หงุดหงิด">😤</button>
+    </div>
+    <div id="today-mood-display" style="text-align:center;font-size:.85rem;color:#6b7280"></div>
+    <canvas id="mood-chart" style="max-height:180px;margin-top:.75rem"></canvas>
+  </div>
 
-        function resetChecklist() {
-            if (confirm('ต้องการรีเซ็ต Checklist วันนี้หรือไม่?')) {
-                const checkboxes = ['water', 'meal', 'smile', 'love', 'exercise', 'rest'];
-                checkboxes.forEach(id => {
-                    document.getElementById(`check-${id}`).checked = false;
-                });
-                localStorage.removeItem('checklist_' + getTodayKey());
-                updateProgress(0, checkboxes.length);
-            }
-        }
+  <!-- Health trackers -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">💪 Health Tracker</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+      <!-- Water -->
+      <div class="card-sm" style="text-align:center">
+        <div style="font-size:1.5rem">💧</div>
+        <div style="font-size:1.2rem;font-weight:700;color:var(--blue)" id="water-count">0</div>
+        <div style="font-size:.7rem;color:#9ca3af">แก้ว / 8</div>
+        <div class="prog-bar" style="margin:.4rem 0"><div class="prog-fill" id="water-prog" style="width:0%;background:linear-gradient(90deg,#3b82f6,#06b6d4)"></div></div>
+        <div style="display:flex;gap:.25rem;justify-content:center">
+          <button class="btn-icon" style="background:#eff6ff;color:var(--blue);font-size:1rem;width:36px;height:36px" onclick="addWater(-1)">-</button>
+          <button class="btn-icon" style="background:#eff6ff;color:var(--blue);font-size:1rem;width:36px;height:36px" onclick="addWater(1)">+</button>
+        </div>
+      </div>
+      <!-- Steps -->
+      <div class="card-sm" style="text-align:center">
+        <div style="font-size:1.5rem">🚶</div>
+        <div style="font-size:1.2rem;font-weight:700;color:var(--green)" id="step-count">0</div>
+        <div style="font-size:.7rem;color:#9ca3af">ก้าว / 10000</div>
+        <div class="prog-bar" style="margin:.4rem 0"><div class="prog-fill" id="step-prog" style="width:0%;background:linear-gradient(90deg,#22c55e,#84cc16)"></div></div>
+        <div style="display:flex;gap:.25rem;justify-content:center">
+          <button class="btn-icon" style="background:#f0fdf4;color:var(--green);font-size:.85rem;width:36px;height:36px" onclick="addSteps(1000)">+1K</button>
+          <button class="btn-icon" style="background:#f0fdf4;color:var(--green);font-size:.85rem;width:36px;height:36px" onclick="addSteps(-1000)">-1K</button>
+        </div>
+      </div>
+      <!-- Sleep -->
+      <div class="card-sm" style="text-align:center">
+        <div style="font-size:1.5rem">😴</div>
+        <input type="number" id="sleep-hours" min="0" max="24" value="0" style="width:60px;text-align:center;border:1.5px solid #fecdd3;border-radius:8px;font-size:1.1rem;font-weight:700;color:var(--purple);padding:.25rem;font-family:'Prompt',sans-serif" onchange="saveSleep()">
+        <div style="font-size:.7rem;color:#9ca3af">ชั่วโมงนอน</div>
+      </div>
+      <!-- Period tracker -->
+      <div class="card-sm" style="text-align:center">
+        <div style="font-size:1.5rem">🌸</div>
+        <div style="font-size:.75rem;font-weight:600;color:var(--pink)" id="period-status">ตั้งค่า</div>
+        <div style="font-size:.7rem;color:#9ca3af" id="period-next"></div>
+        <button class="btn-ghost" onclick="openPeriodModal()" style="margin-top:.4rem;font-size:.7rem;padding:.3rem .6rem">จัดการ 🌸</button>
+      </div>
+    </div>
+    <!-- Health tip of the day -->
+    <div class="tip-card" id="health-tip" style="margin-top:.75rem;background:#f0fdf4;border-color:#bbf7d0">
+      <span style="font-size:1.4rem">💡</span>
+      <div>
+        <div style="font-size:.8rem;font-weight:600;color:#166534">เคล็ดลับสุขภาพวันนี้</div>
+        <div style="font-size:.8rem;color:#15803d" id="tip-text"></div>
+      </div>
+    </div>
+  </div>
 
-        function updateProgress(completed, total) {
-            const percentage = (completed / total) * 100;
-            document.getElementById('progress-bar').style.width = percentage + '%';
-            document.getElementById('progress-text').innerText = `${completed}/${total}`;
-        }
+  <!-- Breathing exercise -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--purple);margin-bottom:.75rem;font-size:.95rem">🧘 ฝึกหายใจคลายเครียด</h3>
+    <div style="text-align:center">
+      <div class="breath-circle" id="breath-circle">🌸</div>
+      <div style="font-size:1rem;font-weight:600;margin:.75rem 0;color:#374151" id="breath-phase">กดเพื่อเริ่ม</div>
+      <div style="font-size:.8rem;color:#9ca3af;margin-bottom:.75rem" id="breath-count"></div>
+      <button class="btn-primary" onclick="toggleBreathing()" id="breath-btn" style="background:linear-gradient(135deg,var(--purple),var(--indigo))">เริ่มฝึก 🧘</button>
+    </div>
+  </div>
 
-        function getTodayKey() {
-            const today = new Date();
-            return `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-        }
+</section>
 
-        // ========== Mood Tracking ==========
-        function saveMood(moodType, emoji) {
-            const today = getTodayKey();
-            const moodData = JSON.parse(localStorage.getItem('moodHistory') || '{}');
-            
-            moodData[today] = { type: moodType, emoji: emoji, timestamp: new Date().toISOString() };
-            localStorage.setItem('moodHistory', JSON.stringify(moodData));
-            
-            const messages = {
-                'happy': 'ดีใจที่เดียร์มีความสุขนะ! 💕',
-                'good': 'เป็นวันธรรมดาที่เค้ารักเดียร์เหมือนเดิม ❤️',
-                'tired': 'เหนื่อยไหม พักผ่อนเยอะๆ นะ 😴',
-                'sad': 'โอ๋ๆ ไม่ร้องนะ เค้าอยู่ตรงนี้ 🫂'
-            };
-            
-            alert(messages[moodType]);
-            updateMoodChart();
-        }
+<!-- TAB: FUN (🎲) -->
+<section id="tab-fun" class="tab-section">
 
-        function updateMoodChart() {
-            const moodData = JSON.parse(localStorage.getItem('moodHistory') || '{}');
-            const last7Days = [];
-            const moodCounts = { happy: 0, good: 0, tired: 0, sad: 0 };
-            
-            for (let i = 6; i >= 0; i--) {
-                const date = new Date();
-                date.setDate(date.getDate() - i);
-                const key = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-                last7Days.push(date.toLocaleDateString('th-TH', { month: 'short', day: 'numeric' }));
-                
-                if (moodData[key]) {
-                    moodCounts[moodData[key].type]++;
-                }
-            }
+  <!-- Love quiz -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">❓ Love Quiz</h3>
+    <div id="quiz-question" style="font-size:.95rem;color:#374151;font-weight:500;margin-bottom:.75rem;min-height:50px"></div>
+    <div id="quiz-options"></div>
+    <div id="quiz-result" style="display:none;text-align:center;padding:.75rem;border-radius:12px;margin-top:.5rem;font-size:.9rem;font-weight:500"></div>
+    <div style="display:flex;gap:.5rem;margin-top:.75rem">
+      <button class="btn-primary" onclick="nextQuiz()" style="flex:1;font-size:.85rem">คำถามถัดไป ▶</button>
+      <div style="font-size:.8rem;color:#9ca3af;display:flex;align-items:center" id="quiz-score-display"></div>
+    </div>
+  </div>
 
-            if (moodChart) {
-                moodChart.destroy();
-            }
+  <!-- Love test / compatibility -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">💑 วัดความเข้ากัน</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem">
+      <input class="inp" id="compat-a" placeholder="ชื่อเรา 💕" style="text-align:center;font-size:.9rem">
+      <input class="inp" id="compat-b" placeholder="ชื่อเดียร์ 💕" style="text-align:center;font-size:.9rem">
+    </div>
+    <button class="btn-primary" onclick="calcCompat()" style="width:100%;font-size:.9rem">คำนวณ 💖</button>
+    <div id="compat-result" style="display:none;margin-top:.75rem">
+      <div style="text-align:center;font-size:2rem;font-weight:700;color:var(--pink)" id="compat-pct"></div>
+      <div class="result-bar"><div class="result-fill" id="compat-bar" style="width:0%"></div></div>
+      <div style="text-align:center;font-size:.9rem;color:#374151;margin-top:.5rem" id="compat-msg"></div>
+    </div>
+  </div>
 
-            const ctx = document.getElementById('moodChart').getContext('2d');
-            moodChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['มีความสุข 😄', 'ดีค่ะ 🙂', 'เหนื่อย 😮‍💨', 'เศร้า 😢'],
-                    datasets: [{
-                        data: [moodCounts.happy, moodCounts.good, moodCounts.tired, moodCounts.sad],
-                        backgroundColor: ['#fb923c', '#fbbf24', '#60a5fa', '#a78bfa'],
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    family: 'Prompt',
-                                    size: 11
-                                },
-                                padding: 10
-                            }
-                        }
-                    }
-                }
-            });
-        }
+  <!-- Date night wheel -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">🎡 ไปเดทที่ไหนดี?</h3>
+    <div style="text-align:center">
+      <canvas id="spin-wheel" width="260" height="260" style="max-width:100%"></canvas>
+      <div id="spin-result" style="font-size:1rem;font-weight:600;color:var(--pink);margin:.5rem 0;min-height:24px"></div>
+      <button class="btn-primary" onclick="spinWheel()" id="spin-btn">หมุนเลย! 🎲</button>
+    </div>
+  </div>
 
-        // ========== Geolocation ==========
-        function getLocation() {
-            if (!navigator.geolocation) {
-                alert('เบราว์เซอร์นี้ไม่รองรับ Geolocation');
-                return;
-            }
+  <!-- Bucket list together -->
+  <div class="card fade-up">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+      <h3 style="font-weight:600;color:var(--pink);font-size:.95rem">🪣 Bucket List ของเรา</h3>
+      <span style="font-size:.75rem;color:#9ca3af" id="bucket-progress">0/0</span>
+    </div>
+    <div id="bucket-list"></div>
+    <div style="display:flex;gap:.5rem;margin-top:.75rem">
+      <input class="inp" id="bucket-input" placeholder="เพิ่มสิ่งที่อยากทำด้วยกัน..." style="flex:1;font-size:.85rem" onkeydown="if(event.key==='Enter')addBucketItem()">
+      <button class="btn-primary" onclick="addBucketItem()" style="font-size:.85rem;padding:.65rem 1rem">+</button>
+    </div>
+  </div>
 
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    currentLocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                        accuracy: position.coords.accuracy
-                    };
+  <!-- Love fortune -->
+  <div class="card fade-up" style="text-align:center">
+    <h3 style="font-weight:600;color:var(--amber);margin-bottom:.75rem;font-size:.95rem">🔮 ดวงความรักวันนี้</h3>
+    <div style="font-size:3rem;margin:.5rem 0" id="fortune-emoji">🔮</div>
+    <div style="font-size:.95rem;color:#374151;line-height:1.6;min-height:60px;margin:.5rem 0" id="fortune-text">กดเพื่อดูดวงความรักวันนี้</div>
+    <button class="btn-primary" onclick="drawFortune()" style="background:linear-gradient(135deg,var(--amber),#f97316)">ดูดวง ✨</button>
+  </div>
 
-                    document.getElementById('lat').innerText = currentLocation.lat.toFixed(6);
-                    document.getElementById('lng').innerText = currentLocation.lng.toFixed(6);
-                    document.getElementById('accuracy').innerText = currentLocation.accuracy.toFixed(0);
-                    document.getElementById('location-info').classList.remove('hidden');
+</section>
 
-                    alert('ได้ตำแหน่งของเดียร์แล้ว! 📍');
-                },
-                (error) => {
-                    let errorMsg = 'ไม่สามารถดึงตำแหน่งได้';
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMsg = 'เดียร์ปฏิเสธการแชร์ตำแหน่ง กรุณาอนุญาตในการตั้งค่าเบราว์เซอร์';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMsg = 'ข้อมูลตำแหน่งไม่พร้อมใช้งาน';
-                            break;
-                        case error.TIMEOUT:
-                            errorMsg = 'หมดเวลาในการขอตำแหน่ง';
-                            break;
-                    }
-                    alert(errorMsg);
-                }
-            );
-        }
+<!-- TAB: TOOLS (⚙️) -->
+<section id="tab-tools" class="tab-section">
 
-        function openMap() {
-            if (currentLocation) {
-                const url = `https://www.google.com/maps?q=${currentLocation.lat},${currentLocation.lng}`;
-                window.open(url, '_blank');
-            }
-        }
+  <!-- Note pad -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--pink);margin-bottom:.75rem;font-size:.95rem">📝 Sticky Notes</h3>
+    <div id="notes-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem"></div>
+    <div style="display:flex;gap:.5rem">
+      <input class="inp" id="note-input" placeholder="เพิ่ม note..." style="flex:1;font-size:.85rem" onkeydown="if(event.key==='Enter')addNote()">
+      <button class="btn-primary" onclick="addNote()" style="font-size:.85rem;padding:.65rem 1rem">+</button>
+    </div>
+  </div>
 
-        // ========== Screen Sharing ==========
-        async function shareScreen() {
-            try {
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
-                    alert('เบราว์เซอร์นี้ไม่รองรับการแชร์หน้าจอ กรุณาใช้ Chrome, Edge หรือ Firefox');
-                    return;
-                }
+  <!-- Timer / Pomodoro -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--indigo);margin-bottom:.75rem;font-size:.95rem">⏱️ Timer</h3>
+    <div style="text-align:center">
+      <div style="font-size:3rem;font-weight:700;color:var(--indigo);font-variant-numeric:tabular-nums;letter-spacing:.05em" id="timer-display">00:00</div>
+      <div style="display:flex;gap:.5rem;justify-content:center;margin:.75rem 0;flex-wrap:wrap">
+        <button class="btn-ghost" onclick="setTimer(25*60)" style="font-size:.8rem">Pomodoro 25m</button>
+        <button class="btn-ghost" onclick="setTimer(5*60)" style="font-size:.8rem">Break 5m</button>
+        <button class="btn-ghost" onclick="setTimer(10*60)" style="font-size:.8rem">Long 10m</button>
+      </div>
+      <div style="display:flex;gap:.5rem;justify-content:center">
+        <button class="btn-primary" onclick="startTimer()" id="timer-start-btn" style="background:linear-gradient(135deg,var(--indigo),var(--purple))">▶ เริ่ม</button>
+        <button class="btn-ghost" onclick="resetTimer()">⏹ รีเซ็ต</button>
+      </div>
+    </div>
+  </div>
 
-                mediaStream = await navigator.mediaDevices.getDisplayMedia({
-                    video: {
-                        cursor: "always"
-                    },
-                    audio: false
-                });
+  <!-- Calculator -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--teal);margin-bottom:.75rem;font-size:.95rem">🧮 เครื่องคิดเลข</h3>
+    <input class="inp" id="calc-display" style="font-size:1.5rem;text-align:right;font-weight:700;margin-bottom:.5rem;color:var(--teal)" readonly value="0">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem" id="calc-pad"></div>
+  </div>
 
-                const video = document.getElementById('sharedScreen');
-                video.srcObject = mediaStream;
-                document.getElementById('video-container').classList.remove('hidden');
+  <!-- Expense splitter -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--green);margin-bottom:.75rem;font-size:.95rem">💰 หารค่าใช้จ่าย</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem">
+      <div>
+        <label style="font-size:.75rem;color:#6b7280">ยอดทั้งหมด (บาท)</label>
+        <input class="inp" id="split-total" type="number" placeholder="0" oninput="calcSplit()" style="font-size:.9rem;margin-top:.25rem">
+      </div>
+      <div>
+        <label style="font-size:.75rem;color:#6b7280">จำนวนคน</label>
+        <input class="inp" id="split-people" type="number" value="2" min="1" oninput="calcSplit()" style="font-size:.9rem;margin-top:.25rem">
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <label style="font-size:.75rem;color:#6b7280;white-space:nowrap">VAT %</label>
+      <input class="inp" id="split-vat" type="number" value="7" min="0" oninput="calcSplit()" style="font-size:.9rem;width:60px">
+      <label style="font-size:.75rem;color:#6b7280;white-space:nowrap">Service %</label>
+      <input class="inp" id="split-service" type="number" value="10" min="0" oninput="calcSplit()" style="font-size:.9rem;width:60px">
+    </div>
+    <div id="split-result" style="background:var(--pink-ll);border-radius:12px;padding:.75rem;text-align:center;display:none">
+      <div style="font-size:.8rem;color:#9ca3af">คนละ</div>
+      <div style="font-size:1.8rem;font-weight:700;color:var(--pink)" id="split-per">฿0</div>
+      <div style="font-size:.75rem;color:#9ca3af" id="split-detail"></div>
+    </div>
+  </div>
 
-                mediaStream.getVideoTracks()[0].onended = () => {
-                    stopSharing();
-                };
+  <!-- Random idea picker -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--rose);margin-bottom:.75rem;font-size:.95rem">🎰 สุ่มไอเดีย</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem">
+      <button class="btn-ghost" onclick="randomIdea('food')" style="font-size:.85rem">🍜 กินอะไร?</button>
+      <button class="btn-ghost" onclick="randomIdea('movie')" style="font-size:.85rem">🎬 ดูอะไร?</button>
+      <button class="btn-ghost" onclick="randomIdea('date')" style="font-size:.85rem">💕 เดทยังไง?</button>
+      <button class="btn-ghost" onclick="randomIdea('gift')" style="font-size:.85rem">🎁 ของขวัญ?</button>
+    </div>
+    <div id="idea-result" style="text-align:center;font-size:1rem;color:#374151;min-height:30px;font-weight:500"></div>
+  </div>
 
-                alert('กำลังแชร์หน้าจอแล้ว! 📺');
-            } catch (error) {
-                if (error.name === 'NotAllowedError') {
-                    alert('เดียร์ยกเลิกการแชร์หน้าจอ');
-                } else {
-                    alert('ไม่สามารถแชร์หน้าจอได้: ' + error.message);
-                }
-            }
-        }
+  <!-- Location share -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:var(--red);margin-bottom:.75rem;font-size:.95rem">📍 ดูตำแหน่งของฉัน</h3>
+    <div id="location-info" style="display:none;background:var(--pink-ll);border-radius:12px;padding:.75rem;margin-bottom:.5rem;font-size:.85rem;color:#374151">
+      <div>📌 Lat: <span id="loc-lat"></span></div>
+      <div>📌 Lng: <span id="loc-lng"></span></div>
+      <div>🎯 แม่นยำ: <span id="loc-acc"></span> ม.</div>
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn-primary" onclick="getLocation()" style="flex:1;font-size:.85rem;background:linear-gradient(135deg,var(--red),#f97316)">📍 หาตำแหน่ง</button>
+      <button class="btn-ghost" onclick="openMap()" id="open-map-btn" style="font-size:.85rem;display:none">🗺️ เปิดแผนที่</button>
+    </div>
+  </div>
 
-        function stopSharing() {
-            if (mediaStream) {
-                mediaStream.getTracks().forEach(track => track.stop());
-                mediaStream = null;
-                document.getElementById('video-container').classList.add('hidden');
-            }
-        }
+  <!-- Settings -->
+  <div class="card fade-up">
+    <h3 style="font-weight:600;color:#374151;margin-bottom:.75rem;font-size:.95rem">⚙️ ตั้งค่า</h3>
+    <div style="space-y:.5rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid #fce7f3">
+        <span style="font-size:.9rem;color:#374151">ชื่อแอพ</span>
+        <input class="inp" id="app-name-inp" value="For My Dear" style="width:140px;font-size:.85rem;text-align:right" onchange="saveAppName()">
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid #fce7f3">
+        <span style="font-size:.9rem;color:#374151">วันที่เริ่มคบ</span>
+        <input class="inp" id="start-date-inp" type="date" style="width:140px;font-size:.85rem" onchange="saveStartDate()">
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid #fce7f3">
+        <span style="font-size:.9rem;color:#374151">Notifications</span>
+        <button class="btn-ghost" onclick="requestNotifPerm()" style="font-size:.8rem">เปิดใช้งาน 🔔</button>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0">
+        <span style="font-size:.9rem;color:#374151">ล้างข้อมูลทั้งหมด</span>
+        <button class="btn-ghost" onclick="clearAll()" style="font-size:.8rem;border-color:#fca5a5;color:var(--red)">ล้าง 🗑️</button>
+      </div>
+    </div>
+  </div>
 
-        // ========== Tab Navigation ==========
-        function switchTab(tabId) {
-            document.getElementById('tab-love').classList.add('hidden');
-            document.getElementById('tab-checklist').classList.add('hidden');
-            document.getElementById('tab-tools').classList.add('hidden');
-            
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+</section>
 
-            ['love', 'checklist', 'tools'].forEach(tab => {
-                const btn = document.getElementById('btn-' + tab);
-                if (tab === tabId) {
-                    btn.classList.remove('text-gray-400');
-                    btn.classList.add('text-pink-500');
-                } else {
-                    btn.classList.remove('text-pink-500');
-                    btn.classList.add('text-gray-400');
-                }
-            });
+<!-- Bottom Navigation (7 tabs) -->
+<div id="bottom-nav">
+  <div style="max-width:480px;margin:0 auto;display:flex;justify-content:space-around">
+    <button class="nav-btn active" id="nav-home" onclick="switchTab('home',this)">
+      <span class="nav-icon">💌</span>
+      <span class="nav-label">หน้าหลัก</span>
+    </button>
+    <button class="nav-btn" id="nav-memories" onclick="switchTab('memories',this)">
+      <span class="nav-icon">📸</span>
+      <span class="nav-label">ความทรงจำ</span>
+      <span class="nav-dot" id="dot-memories"></span>
+    </button>
+    <button class="nav-btn" id="nav-daily" onclick="switchTab('daily',this)">
+      <span class="nav-icon">✅</span>
+      <span class="nav-label">ประจำวัน</span>
+      <span class="nav-dot" id="dot-daily"></span>
+    </button>
+    <button class="nav-btn" id="nav-fun" onclick="switchTab('fun',this)">
+      <span class="nav-icon">🎲</span>
+      <span class="nav-label">สนุก</span>
+    </button>
+    <button class="nav-btn" id="nav-tools" onclick="switchTab('tools',this)">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-label">เครื่องมือ</span>
+    </button>
+  </div>
+</div>
 
-            if (tabId === 'checklist') {
-                loadChecklist();
-            } else if (tabId === 'tools') {
-                updateMoodChart();
-            }
-        }
+<!-- MODALS -->
 
-        // ========== Initialization ==========
-        window.onload = function() {
-            updateDate();
-            updateStats();
-            randomMessage();
-            loadChecklist();
-            updateMoodChart();
-            updateOnlineStatus();
-        };
-    </script>
+<!-- Letter history modal -->
+<div class="modal-overlay" id="modal-letters">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h3 style="font-weight:600;color:var(--pink)">📚 ประวัติจดหมายรัก</h3>
+      <button onclick="closeModal('modal-letters')" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#9ca3af">×</button>
+    </div>
+    <div id="letter-history"></div>
+  </div>
+</div>
+
+<!-- Add moment modal -->
+<div class="modal-overlay" id="modal-moment">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h3 style="font-weight:600;color:var(--pink)">📅 เพิ่ม Moment</h3>
+      <button onclick="closeModal('modal-moment')" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#9ca3af">×</button>
+    </div>
+    <input class="inp" id="moment-date" type="date" style="margin-bottom:.5rem">
+    <input class="inp" id="moment-title" placeholder="ชื่อ Moment" style="margin-bottom:.5rem">
+    <textarea class="inp" id="moment-desc" placeholder="รายละเอียด..." style="margin-bottom:.75rem"></textarea>
+    <div style="display:flex;gap:.25rem;flex-wrap:wrap;margin-bottom:.75rem" id="moment-emoji-pick">
+      <span style="font-size:.8rem;color:#9ca3af;width:100%">เลือก emoji:</span>
+    </div>
+    <button class="btn-primary" onclick="saveMoment()" style="width:100%">บันทึก 💾</button>
+  </div>
+</div>
+
+<!-- Period tracker modal -->
+<div class="modal-overlay" id="modal-period">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h3 style="font-weight:600;color:var(--pink)">🌸 Period Tracker</h3>
+      <button onclick="closeModal('modal-period')" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#9ca3af">×</button>
+    </div>
+    <label style="font-size:.85rem;color:#6b7280">วันแรกของรอบล่าสุด</label>
+    <input class="inp" id="period-last" type="date" style="margin:.25rem 0 .75rem">
+    <label style="font-size:.85rem;color:#6b7280">รอบเดือนเฉลี่ย (วัน)</label>
+    <input class="inp" id="period-cycle" type="number" value="28" min="21" max="35" style="margin:.25rem 0 .75rem">
+    <button class="btn-primary" onclick="savePeriod()" style="width:100%">บันทึก 💾</button>
+  </div>
+</div>
+
+<!-- Custom task modal -->
+<div class="modal-overlay" id="modal-task">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h3 style="font-weight:600;color:var(--pink)">➕ เพิ่มภารกิจ</h3>
+      <button onclick="closeModal('modal-task')" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#9ca3af">×</button>
+    </div>
+    <input class="inp" id="task-emoji" placeholder="Emoji (เช่น 🌟)" style="margin-bottom:.5rem;width:80px">
+    <input class="inp" id="task-label" placeholder="ชื่อภารกิจ" style="margin-bottom:.75rem">
+    <button class="btn-primary" onclick="saveCustomTask()" style="width:100%">เพิ่ม ✅</button>
+  </div>
+</div>
+
+<!-- Photo viewer -->
+<div class="modal-overlay" id="modal-photo">
+  <div style="width:100%;max-width:480px;padding:1rem;text-align:center">
+    <img id="photo-viewer-img" src="" style="max-width:100%;max-height:80vh;border-radius:16px;object-fit:contain">
+    <div style="margin-top:.75rem">
+      <button onclick="closeModal('modal-photo')" class="btn-ghost">ปิด</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ SCRIPTS ════════════════ -->
+<script>
+// ══════════════════════════════════════
+// CONSTANTS & INITIAL DATA
+// ══════════════════════════════════════
+const LOVE_MSGS = [
+  "รักเดียร์นะคับ เป็นห่วงเสมอเลย ❤️",
+  "ขอบคุณที่เดียร์เข้ามาเป็นความสุขในทุกๆ วันของเค้านะ",
+  "เดียร์คือรอยยิ้มที่น่ารักที่สุดของเค้าเลย 😊",
+  "เหนื่อยไหมวันนี้? กอดๆ นะ 🫂",
+  "ไม่ว่าวันไหนก็จะคอยอยู่ข้างๆ เดียร์เสมอนะ",
+  "รักเดียร์เท่าจักรวาลเลย! 🌌",
+  "ตั้งใจทำงาน/เรียนนะ เค้าเป็นกำลังใจให้ ✌️",
+  "วันนี้เดียร์เก่งมากแล้ว พักผ่อนเยอะๆ นะ",
+  "หิวหรือยัง? อย่าลืมหาอะไรอร่อยๆ กินนะ 🍕",
+  "มองไปทางไหนก็คิดถึงแต่เดียร์ 💕",
+  "เดียร์สวยที่สุดในโลกเลย ✨",
+  "ขอบคุณที่เกิดมาเจอกันนะ 💝",
+  "วันนี้อย่าลืมยิ้มนะ เดียร์ยิ้มสวยมาก 😊",
+  "เค้าคิดถึงเดียร์ตลอดเวลา แม้จะอยู่ห่างกัน 💭",
+  "รักเดียร์มากกว่าทุกอย่างในโลกนี้เลยนะ 🌍",
+  "ขอให้วันนี้เดียร์มีความสุขมากๆ นะ ☀️",
+  "เดียร์คือเหตุผลที่ทำให้เค้าตื่นมามีความสุข 🌸",
+  "ถ้าเดียร์เหนื่อย บอกเค้าได้นะ เค้าอยู่ตรงนี้เสมอ 💪",
+  "Love you to the moon and back 🌙",
+  "อยู่ๆ ก็อยากบอกว่า รักเดียร์มากๆ นะ 💖"
+];
+
+const STICKERS = ['❤️','💕','💖','💗','💝','💘','💌','🌹','🌸','🦋','🌈','✨','🎀','🍓','🍑','🧁','🎠','🌙','⭐','💫','🫂','😘','🥰','😍','🤗','💋','🌺','🎁','🎉','🎊','🌟','💎','🦄','🍀','🌻'];
+
+const DEFAULT_TASKS = [
+  {id:'water',emoji:'💧',label:'ดื่มน้ำครบ 8 แก้ว'},
+  {id:'meal',emoji:'🍱',label:'กินข้าวตรงเวลา'},
+  {id:'smile',emoji:'😊',label:'ยิ้มให้ตัวเองในกระจก'},
+  {id:'love',emoji:'❤️',label:'บอกรักกัน'},
+  {id:'exercise',emoji:'🏃',label:'ออกกำลังกาย'},
+  {id:'rest',emoji:'😴',label:'นอนหลับพักผ่อน'},
+  {id:'skincare',emoji:'🧴',label:'ดูแลผิวพรรณ'},
+  {id:'vitamins',emoji:'💊',label:'กินวิตามิน'}
+];
+
+const DATE_IDEAS = {
+  food:['ชาบูหม้อไฟ 🍲','ปิ้งย่าง 🍖','ราเมน 🍜','พิซซ่า 🍕','ซูชิ 🍣','ข้าวมันไก่ 🍗','สเต็ก 🥩','ของทะเล 🦐','อาหารเกาหลี 🇰🇷','ก๋วยเตี๋ยว 🍝'],
+  movie:['หนังรัก 💕','หนังตลก 😂','หนัง Marvel 🦸','แอนิเมชั่น 🎭','สยองขวัญ 👻','ซีรีส์เกาหลี 🇰🇷','หนังผจญภัย 🌏','หนังพีเรียด 👑'],
+  date:['เดินห้าง 🛍️','ดูหนัง 🎬','กินข้าวร้านใหม่ 🍽️','สวนสนุก 🎡','พิกนิก 🧺','โบว์ลิ่ง 🎳','คาราโอเกะ 🎤','นวด 💆','ทะเล 🏖️','เขาหรือน้ำตก 🏔️'],
+  gift:['หมอนข้างตัวเอง 😴','กระเป๋า 👜','น้ำหอม 🌸','ช็อกโกแลต 🍫','ดอกไม้ 💐','เสื้อผ้า 👗','Polaroid รูปด้วยกัน 📷','จดหมายรัก 💌','เค้ก 🎂','เครื่องประดับ 💍']
+};
+
+const FORTUNES = [
+  {e:'🌟',t:'ดวงความรักของเดียร์วันนี้สุดยอดมาก! จะมีเรื่องดีๆ เกิดขึ้น รับไว้เลย 💕'},
+  {e:'🌙',t:'วันนี้เหมาะกับการบอกความในใจ อย่ากลัวนะ ❤️'},
+  {e:'🌈',t:'ช่วงนี้ความสัมพันธ์แข็งแกร่งมาก รักนี้ยั่งยืนแน่นอน 💪'},
+  {e:'🌸',t:'วันนี้ทำอะไรเพื่อคนรักก็ดีหมด เหมาะสำหรับ surprise! 🎁'},
+  {e:'⭐',t:'ดวงบอกว่าควรพักผ่อน แล้วความรักจะยิ่งสดใสขึ้น 😴'},
+  {e:'💫',t:'วันนี้เดียร์จะได้รับสิ่งดีๆ ที่ไม่คาดฝัน คอยรับไว้นะ ✨'},
+  {e:'🔥',t:'พลังงานความรักสูงมากวันนี้! ออกไปทำอะไรสนุกๆ ด้วยกัน 🎉'},
+  {e:'💎',t:'ความรักที่มีมีค่ามากกว่าทองคำ รักษาไว้ให้ดีนะ 💍'},
+  {e:'🌺',t:'วันนี้เหมาะสำหรับการขอโทษถ้ามีเรื่องค้างคาใจ 🙏'},
+  {e:'🦋',t:'ความรักกำลังเติบโตขึ้นทุกวัน เชื่อในความรู้สึกที่มีอยู่ 🌱'}
+];
+
+const HEALTH_TIPS = [
+  'ดื่มน้ำอุ่นตอนเช้าช่วยให้ระบบย่อยอาหารทำงานดีขึ้น',
+  'นอนหลับก่อน 23.00 น. ดีต่อผิวและสุขภาพมาก',
+  'ยืดเส้นยืดสาย 5 นาทีก่อนนอนช่วยลดอาการปวดหลัง',
+  'กินผลไม้เป็นของว่างแทนขนมหวานช่วยควบคุมน้ำหนัก',
+  'หัวเราะเยอะๆ นะ มันดีต่อสุขภาพจริงๆ 😄',
+  'ออกไปรับแดดอ่อน 15 นาทีต่อวัน ได้วิตามิน D',
+  'ล้างมือบ่อยๆ ป้องกันโรคได้เยอะมาก',
+  'ทานอาหารช้าๆ เคี้ยวให้ละเอียด ดีต่อการย่อย',
+  'ลดการมองจอก่อนนอน 1 ชั่วโมง ช่วยหลับง่ายขึ้น',
+  'ทำสิ่งที่รักทุกวัน ดีต่อสุขภาพจิต 🌸'
+];
+
+const QUIZ_DATA = [
+  {q:'วันที่เราเริ่มคบกันตรงกับวันอะไร?',opts:['วันจันทร์','วันศุกร์','วันเสาร์','วันอาทิตย์'],a:2},
+  {q:'อาหารที่เดียร์ชอบที่สุดคืออะไร?',opts:['ชาบู','ราเมน','ซูชิ','ก๋วยเตี๋ยว'],a:0},
+  {q:'สีที่เดียร์ชอบที่สุดคืออะไร?',opts:['ชมพู','ม่วง','ฟ้า','เขียว'],a:0},
+  {q:'คำที่เค้าพูดบ่อยที่สุดคืออะไร?',opts:['รักนะ','น่ารัก','อยากกิน','โอเค'],a:0},
+  {q:'กิจกรรมที่เราชอบทำด้วยกันมากที่สุดคืออะไร?',opts:['ดูหนัง','กินข้าว','เดินเล่น','อยู่เฉยๆ'],a:1},
+  {q:'ถ้ามีวันหยุด เดียร์อยากทำอะไร?',opts:['ตื่นสาย','ออกไปเที่ยว','อยู่บ้าน','ช้อปปิ้ง'],a:2},
+  {q:'ของขวัญที่เดียร์อยากได้มากที่สุดคืออะไร?',opts:['กระเป๋า','เครื่องสำอาง','ดอกไม้','เวลาด้วยกัน'],a:3},
+];
+
+const WHEEL_ITEMS = [
+  {label:'🍽️ กินข้าว',color:'#fda4af'},{label:'🎬 ดูหนัง',color:'#c4b5fd'},
+  {label:'☕ คาเฟ่',color:'#fdba74'},{label:'🎤 คาราโอเกะ',color:'#86efac'},
+  {label:'🛍️ ช้อปปิ้ง',color:'#67e8f9'},{label:'🏠 อยู่บ้าน',color:'#fde68a'},
+  {label:'🎳 โบว์ลิ่ง',color:'#fca5a5'},{label:'🌳 สวน',color:'#a7f3d0'}
+];
+
+const COMPAT_MSGS = [
+  {min:90,msg:'❤️‍🔥 เป็น soulmate กันเลยทีเดียว! ไม่มีคู่ไหนสมบูรณ์แบบกว่านี้อีกแล้ว'},
+  {min:75,msg:'💕 เข้ากันได้ดีมากๆ ความรักนี้แข็งแกร่งมาก!'},
+  {min:60,msg:'😊 เข้ากันได้ดี มีความรักและความเข้าใจซึ่งกันและกัน'},
+  {min:40,msg:'🤝 เข้ากันได้พอสมควร ต้องเข้าใจกันมากขึ้นอีกนิด'},
+  {min:0,msg:'🌱 ยังต้องพัฒนาความสัมพันธ์อีก แต่ทุกความรักเริ่มจากศูนย์!'}
+];
+
+const MOMENT_EMOJIS = ['❤️','🎉','🌸','✈️','🎂','💑','🌊','⛰️','🎬','🍽️','🎁','📸','💍','🏠','🌍'];
+const NOTE_COLORS = ['#fff1f2','#fdf4ff','#eff6ff','#f0fdf4','#fff7ed','#fefce8'];
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let moodChartInst = null;
+let timerInterval = null;
+let timerSeconds = 0;
+let timerRunning = false;
+let spinAnimId = null;
+let spinAngle = 0;
+let isSpinning = false;
+let breathInterval = null;
+let breathPhase = 0;
+let breathRunning = false;
+let breathCount = 0;
+let countdownInterval = null;
+let quizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+let selectedMomentEmoji = '❤️';
+let currentLocation = null;
+let heartfallAnim = null;
+let calcExpr = '';
+let calcNew = true;
+
+// ══════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════
+function ls(k,v){if(v!==undefined){localStorage.setItem(k,JSON.stringify(v));return v}const r=localStorage.getItem(k);try{return r===null?null:JSON.parse(r)}catch{return r}}
+function today(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function fmt(n){return String(n).padStart(2,'0')}
+function showNotif(msg,dur=3000){const b=document.getElementById('notif-banner');document.getElementById('notif-text').textContent=msg;b.classList.add('show');setTimeout(()=>b.classList.remove('show'),dur)}
+function openModal(id){document.getElementById(id).classList.add('open')}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function rippleEffect(e,el){const r=document.createElement('div');r.className='ripple-wave';const rect=el.getBoundingClientRect();r.style.cssText=`left:${e.clientX-rect.left-5}px;top:${e.clientY-rect.top-5}px`;el.appendChild(r);setTimeout(()=>r.remove(),700)}
+
+// ══════════════════════════════════════
+// PWA
+// ══════════════════════════════════════
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;setTimeout(()=>document.getElementById('install-prompt').classList.add('show'),3000)});
+async function installApp(){if(!deferredPrompt){showNotif('💕 ติดตั้งแล้ว หรือเบราว์เซอร์ไม่รองรับ');return}deferredPrompt.prompt();const{outcome}=await deferredPrompt.userChoice;if(outcome==='accepted')showNotif('✅ ติดตั้งสำเร็จ!');deferredPrompt=null;document.getElementById('install-prompt').classList.remove('show')}
+window.addEventListener('appinstalled',()=>showNotif('💖 ติดตั้งแอพสำเร็จแล้ว!'));
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js').catch(()=>{}));
+window.addEventListener('online',()=>{document.getElementById('online-status-txt').textContent='🟢 ออนไลน์'});
+window.addEventListener('offline',()=>{document.getElementById('online-status-txt').textContent='🔴 ออฟไลน์'});
+
+// ══════════════════════════════════════
+// SCROLL TO TOP
+// ══════════════════════════════════════
+window.addEventListener('scroll',()=>{const btn=document.getElementById('scroll-top');btn.classList.toggle('show',window.scrollY>200)});
+
+// ══════════════════════════════════════
+// TAB NAVIGATION
+// ══════════════════════════════════════
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(btn)btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='daily'){renderChecklist();updateMoodChart()}
+  if(name==='memories'){renderTimeline();renderMilestones()}
+  if(name==='fun'){renderBucketList();initWheel();nextQuiz()}
+  if(name==='tools'){renderNotes();calcSplit()}
+}
+
+// ══════════════════════════════════════
+// NAVBAR DATE
+// ══════════════════════════════════════
+function updateNavDate(){
+  const d=new Date();
+  document.getElementById('nav-date').textContent=d.toLocaleDateString('th-TH',{month:'short',day:'numeric'});
+}
+
+// ══════════════════════════════════════
+// LOVE MESSAGE & STATS
+// ══════════════════════════════════════
+function randomMessage(){
+  const el=document.getElementById('love-msg');
+  el.style.opacity=0;
+  setTimeout(()=>{
+    el.textContent='"'+ LOVE_MSGS[Math.floor(Math.random()*LOVE_MSGS.length)]+'"';
+    el.style.opacity=1;el.style.transition='opacity .3s';
+    const cnt=(ls('loveCount')||0)+1;ls('loveCount',cnt);
+    document.getElementById('stat-love').textContent=cnt;
+    triggerMiniHearts();
+  },250);
+}
+
+function updateStats(){
+  const startRaw=ls('startDate');
+  const start=startRaw?new Date(startRaw):new Date('2024-01-01');
+  const days=Math.floor((new Date()-start)/(1000*60*60*24));
+  document.getElementById('stat-days').textContent=days;
+  document.getElementById('stat-love').textContent=ls('loveCount')||0;
+  const streak=ls('streak')||0;
+  document.getElementById('stat-streak').textContent=streak;
+  // milestones
+  renderMilestones(days);
+}
+
+// ══════════════════════════════════════
+// STICKERS
+// ══════════════════════════════════════
+function initStickers(){
+  const picker=document.getElementById('sticker-picker');
+  const bar=document.getElementById('sticker-bar');
+  const letterStickers=document.getElementById('letter-stickers');
+  picker.innerHTML='';
+  STICKERS.forEach(s=>{
+    const span=document.createElement('span');
+    span.className='sticker-item';
+    span.textContent=s;
+    span.title='แตะเพื่อแนบในจดหมาย / กดค้างเพื่อส่งหน้าหลัก';
+    span.onclick=()=>{
+      const cur=document.getElementById('letter-input').value;
+      document.getElementById('letter-input').value=cur+' '+s+' ';
+      showNotif(s+' แนบในจดหมายแล้ว!',1500);
+    };
+    span.oncontextmenu=(e)=>{e.preventDefault();
+      const existing=ls('heroStickers')||[];
+      existing.push(s);if(existing.length>6)existing.shift();
+      ls('heroStickers',existing);renderHeroStickers();showNotif(s+' ส่งหน้าหลักแล้ว!',1500);
+    };
+    picker.appendChild(span);
+  });
+  renderHeroStickers();
+}
+
+function renderHeroStickers(){
+  const bar=document.getElementById('sticker-bar');
+  const saved=ls('heroStickers')||['💕','✨','😘'];
+  bar.innerHTML=saved.map(s=>`<span style="font-size:1.4rem">${s}</span>`).join('');
+}
+
+// ══════════════════════════════════════
+// LOVE LETTER
+// ══════════════════════════════════════
+function saveLetter(){
+  const text=document.getElementById('letter-input').value.trim();
+  if(!text){showNotif('⚠️ กรุณาเขียนจดหมายก่อนนะ');return}
+  const letters=ls('letters')||[];
+  letters.unshift({text,date:new Date().toISOString()});
+  if(letters.length>30)letters.pop();
+  ls('letters',letters);
+  document.getElementById('letter-input').value='';
+  showNotif('💌 บันทึกจดหมายสำเร็จ!');
+  updateStreak();
+}
+
+function shareLetter(){
+  const text=document.getElementById('letter-input').value.trim();
+  if(!text){showNotif('⚠️ เขียนจดหมายก่อนนะ');return}
+  if(navigator.share){navigator.share({title:'จดหมายรัก 💌',text}).catch(()=>{})}
+  else{navigator.clipboard.writeText(text).then(()=>showNotif('📋 คัดลอกจดหมายแล้ว!'))}
+}
+
+function openLetterHistory(){
+  const letters=ls('letters')||[];
+  const container=document.getElementById('letter-history');
+  if(!letters.length){container.innerHTML='<p style="text-align:center;color:#9ca3af;font-size:.85rem">ยังไม่มีจดหมาย 💌</p>';openModal('modal-letters');return}
+  container.innerHTML=letters.map((l,i)=>`
+    <div style="border:1px solid #fce7f3;border-radius:12px;padding:.75rem;margin-bottom:.5rem">
+      <div style="font-size:.7rem;color:#9ca3af;margin-bottom:.25rem">${new Date(l.date).toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
+      <div style="font-size:.85rem;color:#374151;white-space:pre-wrap">${l.text}</div>
+      <button onclick="deleteLetter(${i})" style="margin-top:.4rem;background:none;border:none;font-size:.75rem;color:#fca5a5;cursor:pointer">🗑️ ลบ</button>
+    </div>
+  `).join('');
+  openModal('modal-letters');
+}
+
+function deleteLetter(i){
+  const letters=ls('letters')||[];
+  letters.splice(i,1);ls('letters',letters);openLetterHistory();
+}
+
+// ══════════════════════════════════════
+// STREAK
+// ══════════════════════════════════════
+function updateStreak(){
+  const lastDay=ls('lastActiveDay');
+  const todayStr=today();
+  if(lastDay===todayStr)return;
+  const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+  const yStr=`${yesterday.getFullYear()}-${String(yesterday.getMonth()+1).padStart(2,'0')}-${String(yesterday.getDate()).padStart(2,'0')}`;
+  let streak=ls('streak')||0;
+  streak=(lastDay===yStr)?streak+1:1;
+  ls('streak',streak);ls('lastActiveDay',todayStr);
+  document.getElementById('stat-streak').textContent=streak;
+}
+
+// ══════════════════════════════════════
+// COUNTDOWN
+// ══════════════════════════════════════
+function setAnniversary(){
+  const d=document.getElementById('ann-date').value;
+  const label=document.getElementById('ann-label').value||'วันสำคัญ';
+  if(!d){showNotif('⚠️ กรุณาเลือกวันก่อน');return}
+  ls('annDate',d);ls('annLabel',label);startCountdown();showNotif('⏰ ตั้ง Countdown แล้ว!');
+}
+function startCountdown(){
+  if(countdownInterval)clearInterval(countdownInterval);
+  const annDate=ls('annDate');
+  if(!annDate)return;
+  function tick(){
+    const target=new Date(annDate);
+    const now=new Date();
+    let diff=target-now;
+    if(diff<0){diff+=365.25*24*60*60*1000*Math.ceil(-diff/(365.25*24*60*60*1000))} // roll to next year
+    const days=Math.floor(diff/(1000*60*60*24));
+    const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const mins=Math.floor((diff%(1000*60*60))/(1000*60));
+    const secs=Math.floor((diff%60000)/1000);
+    document.getElementById('cd-days').textContent=fmt(days);
+    document.getElementById('cd-hours').textContent=fmt(hours);
+    document.getElementById('cd-mins').textContent=fmt(mins);
+    document.getElementById('cd-secs').textContent=fmt(secs);
+  }
+  tick();countdownInterval=setInterval(tick,1000);
+}
+
+// ══════════════════════════════════════
+// CHECKLIST
+// ══════════════════════════════════════
+function renderChecklist(){
+  const customTasks=ls('customTasks')||[];
+  const allTasks=[...DEFAULT_TASKS,...customTasks];
+  const saved=ls('checklist_'+today())||{};
+  const container=document.getElementById('checklist-items');
+  container.innerHTML=allTasks.map(t=>`
+    <label style="display:flex;align-items:center;gap:.75rem;padding:.75rem;border-radius:12px;cursor:pointer;border:1px solid #fce7f3;margin-bottom:.4rem;background:${saved[t.id]?'#fff0f5':'#fff'};transition:all .2s">
+      <input type="checkbox" ${saved[t.id]?'checked':''} onchange="toggleTask('${t.id}',this)" style="width:20px;height:20px;accent-color:var(--pink);cursor:pointer">
+      <span style="font-size:1.1rem">${t.emoji}</span>
+      <span style="font-size:.9rem;color:#374151;flex:1;${saved[t.id]?'text-decoration:line-through;color:#9ca3af':''}">${t.label}</span>
+      ${customTasks.find(c=>c.id===t.id)?`<button onclick="removeTask('${t.id}')" style="background:none;border:none;color:#fca5a5;cursor:pointer;font-size:.8rem">✕</button>`:''}
+    </label>
+  `).join('');
+  updateChecklistProgress();
+}
+
+function toggleTask(id,el){
+  const saved=ls('checklist_'+today())||{};
+  saved[id]=el.checked;ls('checklist_'+today(),saved);
+  renderChecklist();updateStreak();
+}
+
+function updateChecklistProgress(){
+  const customTasks=ls('customTasks')||[];
+  const allTasks=[...DEFAULT_TASKS,...customTasks];
+  const saved=ls('checklist_'+today())||{};
+  const done=allTasks.filter(t=>saved[t.id]).length;
+  const total=allTasks.length;
+  document.getElementById('checklist-prog').style.width=(done/total*100)+'%';
+  document.getElementById('checklist-prog-txt').textContent=`${done}/${total}`;
+  if(done===total&&total>0)showNotif('🎉 ทำ Checklist ครบแล้ว! เก่งมาก!');
+}
+
+function resetChecklist(){
+  if(!confirm('รีเซ็ต Checklist วันนี้?'))return;
+  ls('checklist_'+today(),{});renderChecklist();showNotif('🔄 รีเซ็ตแล้ว');
+}
+
+function addCustomTask(){openModal('modal-task')}
+function saveCustomTask(){
+  const emoji=document.getElementById('task-emoji').value||'🌟';
+  const label=document.getElementById('task-label').value.trim();
+  if(!label){showNotif('⚠️ กรุณาใส่ชื่อภารกิจ');return}
+  const custom=ls('customTasks')||[];
+  custom.push({id:'custom_'+Date.now(),emoji,label});
+  ls('customTasks',custom);closeModal('modal-task');renderChecklist();
+  document.getElementById('task-emoji').value='';document.getElementById('task-label').value='';
+}
+function removeTask(id){
+  const custom=(ls('customTasks')||[]).filter(t=>t.id!==id);ls('customTasks',custom);renderChecklist();
+}
+
+// ══════════════════════════════════════
+// MOOD TRACKER
+// ══════════════════════════════════════
+function saveMood(type,emoji,msg){
+  const history=ls('moodHistory')||{};
+  history[today()]={type,emoji,ts:new Date().toISOString()};
+  ls('moodHistory',history);
+  document.getElementById('today-mood-display').textContent=`วันนี้: ${emoji} ${msg}`;
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+  showNotif(emoji+' '+msg,2500);
+  updateMoodChart();updateStreak();
+}
+
+function updateMoodChart(){
+  const history=ls('moodHistory')||{};
+  const typeMap={love:'😍',happy:'😄',good:'🙂',tired:'😮‍💨',sad:'😢',angry:'😤'};
+  const labels=[],data=[],colors=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    labels.push(d.toLocaleDateString('th-TH',{weekday:'short'}));
+    const mood=history[k];
+    const val=mood?({love:6,happy:5,good:4,tired:3,sad:2,angry:1}[mood.type]||4):0;
+    data.push(val);
+    colors.push(mood?({love:'#f43f5e',happy:'#f59e0b',good:'#22c55e',tired:'#3b82f6',sad:'#8b5cf6',angry:'#ef4444'}[mood.type]||'#e5e7eb'):'#e5e7eb');
+  }
+  const ctx=document.getElementById('mood-chart').getContext('2d');
+  if(moodChartInst)moodChartInst.destroy();
+  moodChartInst=new Chart(ctx,{
+    type:'bar',
+    data:{labels,datasets:[{data,backgroundColor:colors,borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},
+      scales:{y:{display:false,min:0,max:7},x:{grid:{display:false},ticks:{font:{family:'Prompt',size:10}}}}}
+  });
+  // Load today's mood display
+  const todayMood=history[today()];
+  if(todayMood)document.getElementById('today-mood-display').textContent=`วันนี้: ${todayMood.emoji} `;
+}
+
+// ══════════════════════════════════════
+// PHOTO ALBUM
+// ══════════════════════════════════════
+function addPhotos(input){
+  const files=Array.from(input.files);
+  const saved=ls('photos')||[];
+  let count=0;
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      saved.unshift({src:e.target.result,date:new Date().toISOString()});
+      count++;
+      if(count===files.length){ls('photos',saved);renderPhotos();showNotif(`📸 เพิ่มรูป ${files.length} รูปแล้ว!`)}
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value='';
+}
+
+function renderPhotos(){
+  const photos=ls('photos')||[];
+  const grid=document.getElementById('photo-grid');
+  if(!photos.length){grid.innerHTML=`<div style="aspect-ratio:1;border-radius:12px;background:#fce7f3;display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;border:2px dashed #fda4af" onclick="document.querySelector('input[type=file]').click()">+</div>`;return}
+  grid.innerHTML=photos.map((p,i)=>`
+    <div class="photo-item">
+      <img src="${p.src}" alt="photo ${i}" onclick="viewPhoto('${p.src.replace(/'/g,"\\'")}')">
+      <button class="photo-del" onclick="deletePhoto(${i})">✕</button>
+    </div>
+  `).join('');
+}
+
+function viewPhoto(src){
+  document.getElementById('photo-viewer-img').src=src;
+  openModal('modal-photo');
+}
+function deletePhoto(i){
+  const photos=ls('photos')||[];photos.splice(i,1);ls('photos',photos);renderPhotos();
+}
+
+// ══════════════════════════════════════
+// TIMELINE / MOMENTS
+// ══════════════════════════════════════
+function initMomentEmojiPicker(){
+  const el=document.getElementById('moment-emoji-pick');
+  el.innerHTML='<span style="font-size:.8rem;color:#9ca3af;width:100%">เลือก emoji:</span>'+
+    MOMENT_EMOJIS.map(e=>`<span style="font-size:1.4rem;cursor:pointer;padding:.2rem;border-radius:6px;transition:transform .15s" onclick="selectedMomentEmoji='${e}';document.querySelectorAll('#moment-emoji-pick span:not(:first-child)').forEach(s=>s.style.background='none');this.style.background='#fce7f3'">${e}</span>`).join('');
+}
+
+function openAddMoment(){
+  document.getElementById('moment-date').value=today();
+  document.getElementById('moment-title').value='';
+  document.getElementById('moment-desc').value='';
+  initMomentEmojiPicker();
+  openModal('modal-moment');
+}
+
+function saveMoment(){
+  const d=document.getElementById('moment-date').value;
+  const title=document.getElementById('moment-title').value.trim();
+  const desc=document.getElementById('moment-desc').value.trim();
+  if(!d||!title){showNotif('⚠️ กรุณาใส่วันที่และชื่อ');return}
+  const moments=ls('moments')||[];
+  moments.push({d,title,desc,emoji:selectedMomentEmoji||'❤️'});
+  moments.sort((a,b)=>new Date(b.d)-new Date(a.d));
+  ls('moments',moments);closeModal('modal-moment');renderTimeline();showNotif('📅 บันทึก Moment แล้ว!');
+}
+
+function renderTimeline(){
+  const moments=ls('moments')||[];
+  const el=document.getElementById('timeline');
+  if(!moments.length){el.innerHTML='<p style="text-align:center;color:#9ca3af;font-size:.85rem;padding:.75rem">ยังไม่มี Moment 📅<br>กด + เพื่อเพิ่ม</p>';return}
+  el.innerHTML=moments.map((m,i)=>`
+    <div style="display:flex;gap:.75rem;margin-bottom:.75rem;position:relative">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--pink-ll);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">${m.emoji}</div>
+      <div style="flex:1;background:#fff;border-radius:12px;border:1px solid #fce7f3;padding:.75rem">
+        <div style="font-size:.7rem;color:#9ca3af">${new Date(m.d).toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'})}</div>
+        <div style="font-weight:600;color:#374151;font-size:.9rem">${m.title}</div>
+        ${m.desc?`<div style="font-size:.8rem;color:#6b7280;margin-top:.25rem">${m.desc}</div>`:''}
+        <button onclick="deleteMoment(${i})" style="background:none;border:none;font-size:.7rem;color:#fca5a5;cursor:pointer;margin-top:.25rem">🗑️ ลบ</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function deleteMoment(i){const m=ls('moments')||[];m.splice(i,1);ls('moments',m);renderTimeline()}
+
+function renderMilestones(days){
+  if(days===undefined){const s=ls('startDate');const start=s?new Date(s):new Date('2024-01-01');days=Math.floor((new Date()-start)/(86400000))}
+  const ms=[
+    {days:7,label:'1 อาทิตย์แรก! 🌱'},{days:30,label:'1 เดือนแล้ว! 🌷'},
+    {days:100,label:'100 วัน! 💯'},{days:180,label:'ครึ่งปี! 🌗'},
+    {days:365,label:'ครบ 1 ปี! 🎂'},{days:500,label:'500 วัน! ✨'},
+    {days:730,label:'ครบ 2 ปี! 💑'},{days:1000,label:'1000 วัน! 🏆'}
+  ];
+  const el=document.getElementById('milestones');
+  if(!el)return;
+  el.innerHTML=ms.map(m=>`
+    <div style="display:flex;align-items:center;gap:.75rem;padding:.5rem 0;border-bottom:1px solid #fce7f3">
+      <span style="font-size:1.2rem">${days>=m.days?'✅':'⭕'}</span>
+      <div style="flex:1">
+        <div style="font-size:.9rem;font-weight:${days>=m.days?'600':'400'};color:${days>=m.days?'var(--pink)':'#9ca3af'}">${m.label}</div>
+        <div style="font-size:.7rem;color:#9ca3af">${m.days} วัน ${days>=m.days?'🎉 ผ่านแล้ว!':(`อีก ${m.days-days} วัน`)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════
+// HEALTH TRACKERS
+// ══════════════════════════════════════
+function addWater(n){let w=(ls('water_'+today())||0)+n;w=Math.max(0,Math.min(8,w));ls('water_'+today(),w);document.getElementById('water-count').textContent=w;document.getElementById('water-prog').style.width=(w/8*100)+'%';if(w===8)showNotif('💧 เยี่ยม! ดื่มน้ำครบ 8 แก้วแล้ว!')}
+function addSteps(n){let s=(ls('steps_'+today())||0)+n;s=Math.max(0,s);ls('steps_'+today(),s);document.getElementById('step-count').textContent=s.toLocaleString();document.getElementById('step-prog').style.width=(Math.min(s/10000,1)*100)+'%';if(s>=10000)showNotif('🏃 เยี่ยม! เดินครบ 10,000 ก้าวแล้ว!')}
+function saveSleep(){ls('sleep_'+today(),document.getElementById('sleep-hours').value);showNotif('😴 บันทึกชั่วโมงนอนแล้ว!')}
+
+function loadHealth(){
+  document.getElementById('water-count').textContent=ls('water_'+today())||0;
+  document.getElementById('water-prog').style.width=((ls('water_'+today())||0)/8*100)+'%';
+  const steps=ls('steps_'+today())||0;
+  document.getElementById('step-count').textContent=steps.toLocaleString();
+  document.getElementById('step-prog').style.width=(Math.min(steps/10000,1)*100)+'%';
+  document.getElementById('sleep-hours').value=ls('sleep_'+today())||0;
+  document.getElementById('tip-text').textContent=HEALTH_TIPS[new Date().getDay()%HEALTH_TIPS.length];
+}
+
+// Period tracker
+function openPeriodModal(){
+  const data=ls('period')||{};
+  if(data.last)document.getElementById('period-last').value=data.last;
+  if(data.cycle)document.getElementById('period-cycle').value=data.cycle;
+  openModal('modal-period');
+}
+function savePeriod(){
+  const last=document.getElementById('period-last').value;
+  const cycle=parseInt(document.getElementById('period-cycle').value)||28;
+  ls('period',{last,cycle});updatePeriodDisplay();closeModal('modal-period');showNotif('🌸 บันทึกข้อมูล Period แล้ว!');
+}
+function updatePeriodDisplay(){
+  const data=ls('period');
+  if(!data||!data.last){document.getElementById('period-status').textContent='ยังไม่ตั้งค่า';return}
+  const last=new Date(data.last);const cycle=data.cycle||28;
+  const next=new Date(last);next.setDate(next.getDate()+cycle);
+  const daysLeft=Math.ceil((next-new Date())/86400000);
+  document.getElementById('period-status').textContent=daysLeft>0?`อีก ${daysLeft} วัน`:'ถึงรอบแล้ว';
+  document.getElementById('period-next').textContent=next.toLocaleDateString('th-TH',{month:'short',day:'numeric'});
+}
+
+// ══════════════════════════════════════
+// BREATHING
+// ══════════════════════════════════════
+const BREATH_PHASES=['หายใจเข้า','กลั้นหายใจ','หายใจออก','พัก'];
+const BREATH_DURATIONS=[4000,4000,6000,2000];
+const BREATH_SCALES=[1.5,1.5,1,1];
+function toggleBreathing(){
+  if(breathRunning){clearTimeout(breathInterval);breathRunning=false;document.getElementById('breath-btn').textContent='เริ่มฝึก 🧘';document.getElementById('breath-phase').textContent='กดเพื่อเริ่ม';document.getElementById('breath-count').textContent='';document.getElementById('breath-circle').style.transform='scale(1)';return}
+  breathRunning=true;breathPhase=0;breathCount=0;
+  document.getElementById('breath-btn').textContent='หยุด ⏹';
+  runBreath();
+}
+function runBreath(){
+  if(!breathRunning)return;
+  const phase=breathPhase%4;
+  document.getElementById('breath-phase').textContent=BREATH_PHASES[phase];
+  document.getElementById('breath-circle').style.transform=`scale(${BREATH_SCALES[phase]})`;
+  if(phase===0)breathCount++;
+  document.getElementById('breath-count').textContent=breathCount>0?`รอบที่ ${breathCount}`:'';
+  breathInterval=setTimeout(()=>{breathPhase++;runBreath()},BREATH_DURATIONS[phase]);
+}
+
+// ══════════════════════════════════════
+// LOVE QUIZ
+// ══════════════════════════════════════
+function nextQuiz(){
+  quizAnswered=false;
+  const q=QUIZ_DATA[quizIndex%QUIZ_DATA.length];
+  document.getElementById('quiz-question').textContent=q.q;
+  const opts=document.getElementById('quiz-options');
+  opts.innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(${i})">${o}</button>`).join('');
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-score-display').textContent=`คะแนน: ${quizScore}`;
+}
+function answerQuiz(i){
+  if(quizAnswered)return;quizAnswered=true;
+  const q=QUIZ_DATA[quizIndex%QUIZ_DATA.length];
+  const btns=document.querySelectorAll('.quiz-opt');
+  btns[i].classList.add(i===q.a?'correct':'wrong');
+  btns[q.a].classList.add('correct');
+  const res=document.getElementById('quiz-result');
+  if(i===q.a){quizScore++;res.style.cssText='display:block;background:#f0fdf4;color:#166534';res.textContent='✅ ถูกต้อง! '}
+  else{res.style.cssText='display:block;background:#fff1f2;color:#9f1239';res.textContent='❌ ผิดแล้ว ลองใหม่นะ'}
+  res.style.display='block';quizIndex++;
+  document.getElementById('quiz-score-display').textContent=`คะแนน: ${quizScore}`;
+}
+
+// ══════════════════════════════════════
+// COMPATIBILITY
+// ══════════════════════════════════════
+function calcCompat(){
+  const a=document.getElementById('compat-a').value.trim();
+  const b=document.getElementById('compat-b').value.trim();
+  if(!a||!b){showNotif('⚠️ ใส่ชื่อทั้งสองก่อนนะ');return}
+  const combined=(a+b).toLowerCase();
+  let hash=0;for(let i=0;i<combined.length;i++)hash=(hash*31+combined.charCodeAt(i))&0xffffffff;
+  const pct=Math.abs(hash%41)+60;// 60-100
+  document.getElementById('compat-pct').textContent=pct+'%';
+  document.getElementById('compat-bar').style.width=pct+'%';
+  const msg=COMPAT_MSGS.find(m=>pct>=m.min);
+  document.getElementById('compat-msg').textContent=msg.msg;
+  document.getElementById('compat-result').style.display='block';
+}
+
+// ══════════════════════════════════════
+// SPIN WHEEL
+// ══════════════════════════════════════
+function initWheel(){
+  const canvas=document.getElementById('spin-wheel');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  drawWheel(ctx,spinAngle);
+}
+function drawWheel(ctx,angle){
+  const cx=130,cy=130,r=120;
+  ctx.clearRect(0,0,260,260);
+  const slice=(Math.PI*2)/WHEEL_ITEMS.length;
+  WHEEL_ITEMS.forEach((item,i)=>{
+    const start=angle+i*slice;const end=start+slice;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=item.color;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+slice/2);
+    ctx.textAlign='right';ctx.fillStyle='#374151';ctx.font='bold 12px Prompt,sans-serif';
+    ctx.fillText(item.label,r-8,4);ctx.restore();
+  });
+  // pointer
+  ctx.beginPath();ctx.moveTo(cx+r-5,cy-8);ctx.lineTo(cx+r+14,cy);ctx.lineTo(cx+r-5,cy+8);
+  ctx.closePath();ctx.fillStyle='var(--pink)';ctx.fill();
+}
+function spinWheel(){
+  if(isSpinning)return;isSpinning=true;
+  document.getElementById('spin-btn').disabled=true;
+  document.getElementById('spin-result').textContent='';
+  const canvas=document.getElementById('spin-wheel');
+  const ctx=canvas.getContext('2d');
+  const totalRot=(Math.PI*2*8)+Math.random()*Math.PI*2;
+  const duration=4000;const start=performance.now();const startAngle=spinAngle;
+  function anim(now){
+    const elapsed=now-start;
+    if(elapsed>=duration){
+      spinAngle=(startAngle+totalRot)%(Math.PI*2);
+      drawWheel(ctx,spinAngle);
+      const slice=Math.PI*2/WHEEL_ITEMS.length;
+      const normalized=(Math.PI*2-spinAngle%(Math.PI*2))%(Math.PI*2);
+      const idx=Math.floor(normalized/slice)%WHEEL_ITEMS.length;
+      document.getElementById('spin-result').textContent='🎉 '+WHEEL_ITEMS[idx].label;
+      isSpinning=false;document.getElementById('spin-btn').disabled=false;
+      showNotif('🎉 วันนี้ '+WHEEL_ITEMS[idx].label,3000);return;
+    }
+    const progress=elapsed/duration;
+    const ease=1-Math.pow(1-progress,4);
+    const cur=startAngle+totalRot*ease;
+    drawWheel(ctx,cur);
+    requestAnimationFrame(anim);
+  }
+  requestAnimationFrame(anim);
+}
+
+// ══════════════════════════════════════
+// BUCKET LIST
+// ══════════════════════════════════════
+function renderBucketList(){
+  const items=ls('bucket')||[];
+  const el=document.getElementById('bucket-list');
+  const done=items.filter(i=>i.done).length;
+  document.getElementById('bucket-progress').textContent=`${done}/${items.length}`;
+  if(!items.length){el.innerHTML='<p style="text-align:center;color:#9ca3af;font-size:.85rem;padding:.5rem">เพิ่มสิ่งที่อยากทำด้วยกัน 🌟</p>';return}
+  el.innerHTML=items.map((item,i)=>`
+    <div class="wish-item ${item.done?'done':''}">
+      <input type="checkbox" ${item.done?'checked':''} onchange="toggleBucket(${i})" style="width:18px;height:18px;accent-color:var(--pink);cursor:pointer;flex-shrink:0">
+      <span style="font-size:.9rem;flex:1">${item.text}</span>
+      <button onclick="removeBucket(${i})" style="background:none;border:none;color:#fca5a5;cursor:pointer">✕</button>
+    </div>
+  `).join('');
+}
+function addBucketItem(){
+  const inp=document.getElementById('bucket-input');const text=inp.value.trim();
+  if(!text)return;
+  const items=ls('bucket')||[];items.push({text,done:false,date:new Date().toISOString()});
+  ls('bucket',items);inp.value='';renderBucketList();showNotif('🪣 เพิ่ม Bucket List แล้ว!');
+}
+function toggleBucket(i){const items=ls('bucket')||[];items[i].done=!items[i].done;ls('bucket',items);renderBucketList();if(items[i].done)showNotif('🎉 ทำได้แล้ว! '+ items[i].text);}
+function removeBucket(i){const items=ls('bucket')||[];items.splice(i,1);ls('bucket',items);renderBucketList();}
+
+// ══════════════════════════════════════
+// FORTUNE
+// ══════════════════════════════════════
+function drawFortune(){
+  const f=FORTUNES[Math.floor(Math.random()*FORTUNES.length)];
+  document.getElementById('fortune-emoji').textContent=f.e;
+  document.getElementById('fortune-text').textContent=f.t;
+  triggerConfetti();
+}
+
+// ══════════════════════════════════════
+// NOTES
+// ══════════════════════════════════════
+function renderNotes(){
+  const notes=ls('notes')||[];
+  const grid=document.getElementById('notes-grid');
+  if(!notes.length){grid.innerHTML='<p style="font-size:.8rem;color:#9ca3af;grid-column:1/-1;text-align:center">ยังไม่มี Note 📝</p>';return}
+  grid.innerHTML=notes.map((n,i)=>`
+    <div style="background:${NOTE_COLORS[i%NOTE_COLORS.length]};border-radius:12px;padding:.75rem;border:1px solid #fecdd3;position:relative;min-height:80px">
+      <div style="font-size:.85rem;color:#374151;word-break:break-word">${n.text}</div>
+      <div style="font-size:.6rem;color:#9ca3af;margin-top:.4rem">${new Date(n.date).toLocaleDateString('th-TH',{month:'short',day:'numeric'})}</div>
+      <button onclick="deleteNote(${i})" style="position:absolute;top:4px;right:4px;background:none;border:none;font-size:.75rem;color:#fca5a5;cursor:pointer">✕</button>
+    </div>
+  `).join('');
+}
+function addNote(){
+  const text=document.getElementById('note-input').value.trim();if(!text)return;
+  const notes=ls('notes')||[];notes.unshift({text,date:new Date().toISOString()});
+  if(notes.length>20)notes.pop();ls('notes',notes);document.getElementById('note-input').value='';renderNotes();
+}
+function deleteNote(i){const notes=ls('notes')||[];notes.splice(i,1);ls('notes',notes);renderNotes();}
+
+// ══════════════════════════════════════
+// TIMER
+// ══════════════════════════════════════
+function setTimer(s){timerSeconds=s;timerRunning=false;clearInterval(timerInterval);updateTimerDisplay();}
+function updateTimerDisplay(){document.getElementById('timer-display').textContent=`${fmt(Math.floor(timerSeconds/60))}:${fmt(timerSeconds%60)}`;}
+function startTimer(){
+  if(timerRunning){clearInterval(timerInterval);timerRunning=false;document.getElementById('timer-start-btn').textContent='▶ เริ่ม';return}
+  timerRunning=true;document.getElementById('timer-start-btn').textContent='⏸ หยุด';
+  timerInterval=setInterval(()=>{
+    timerSeconds--;updateTimerDisplay();
+    if(timerSeconds<=0){clearInterval(timerInterval);timerRunning=false;document.getElementById('timer-start-btn').textContent='▶ เริ่ม';showNotif('⏰ หมดเวลาแล้ว!',5000);triggerConfetti();}
+  },1000);
+}
+function resetTimer(){clearInterval(timerInterval);timerRunning=false;timerSeconds=0;updateTimerDisplay();document.getElementById('timer-start-btn').textContent='▶ เริ่ม';}
+
+// ══════════════════════════════════════
+// CALCULATOR
+// ══════════════════════════════════════
+function initCalc(){
+  const pad=['7','8','9','÷','4','5','6','×','1','2','3','-','0','.','=','+','C','±','%','⌫'];
+  const el=document.getElementById('calc-pad');
+  el.innerHTML=pad.map(k=>`<button onclick="calcPress('${k}')" style="padding:.65rem;border-radius:10px;border:1px solid #fce7f3;background:${['='].includes(k)?'var(--pink)':['÷','×','-','+'].includes(k)?'var(--pink-ll)':['C','±','%','⌫'].includes(k)?'#f3f4f6':'#fff'};color:${k==='='?'#fff':'#374151'};font-family:'Prompt';font-size:.9rem;cursor:pointer;transition:all .15s;font-weight:${['÷','×','-','+','='].includes(k)?'600':'400'}">${k}</button>`).join('');
+}
+function calcPress(k){
+  const disp=document.getElementById('calc-display');
+  if(k==='C'){calcExpr='';calcNew=true;disp.value='0';return}
+  if(k==='⌫'){calcExpr=calcExpr.slice(0,-1)||'0';disp.value=calcExpr||'0';return}
+  if(k==='±'){try{disp.value=String(-parseFloat(disp.value));}catch{}return}
+  if(k==='%'){try{calcExpr=String(parseFloat(calcExpr)/100);disp.value=calcExpr;}catch{}return}
+  if(k==='='){
+    try{
+      let expr=calcExpr.replace(/÷/g,'/').replace(/×/g,'*');
+      let result=Function('"use strict";return ('+expr+')')();
+      result=Math.round(result*1e10)/1e10;
+      disp.value=result;calcExpr=String(result);calcNew=true;
+    }catch{disp.value='Error';calcExpr='';calcNew=true}return;
+  }
+  if(calcNew&&!['÷','×','-','+'].includes(k)){calcExpr='';calcNew=false}
+  calcExpr+=({÷:'/',×:'*'}[k]||k);
+  disp.value=calcExpr;
+}
+
+// ══════════════════════════════════════
+// EXPENSE SPLITTER
+// ══════════════════════════════════════
+function calcSplit(){
+  const total=parseFloat(document.getElementById('split-total')?.value)||0;
+  const people=parseInt(document.getElementById('split-people')?.value)||1;
+  const vat=(parseFloat(document.getElementById('split-vat')?.value)||0)/100;
+  const svc=(parseFloat(document.getElementById('split-service')?.value)||0)/100;
+  if(!total){document.getElementById('split-result').style.display='none';return}
+  const withVat=total*(1+vat);
+  const withSvc=withVat*(1+svc);
+  const perPerson=withSvc/people;
+  document.getElementById('split-per').textContent='฿'+perPerson.toFixed(2);
+  document.getElementById('split-detail').textContent=`รวม VAT+Service: ฿${withSvc.toFixed(2)}`;
+  document.getElementById('split-result').style.display='block';
+}
+
+// ══════════════════════════════════════
+// RANDOM IDEAS
+// ══════════════════════════════════════
+function randomIdea(type){
+  const list=DATE_IDEAS[type];
+  const pick=list[Math.floor(Math.random()*list.length)];
+  document.getElementById('idea-result').textContent=pick;
+}
+
+// ══════════════════════════════════════
+// LOCATION
+// ══════════════════════════════════════
+function getLocation(){
+  if(!navigator.geolocation){showNotif('⚠️ เบราว์เซอร์ไม่รองรับ GPS');return}
+  showNotif('📍 กำลังหาตำแหน่ง...');
+  navigator.geolocation.getCurrentPosition(pos=>{
+    currentLocation={lat:pos.coords.latitude,lng:pos.coords.longitude};
+    document.getElementById('loc-lat').textContent=currentLocation.lat.toFixed(6);
+    document.getElementById('loc-lng').textContent=currentLocation.lng.toFixed(6);
+    document.getElementById('loc-acc').textContent=pos.coords.accuracy.toFixed(0);
+    document.getElementById('location-info').style.display='block';
+    document.getElementById('open-map-btn').style.display='inline-flex';
+    showNotif('📍 ได้ตำแหน่งแล้ว!');
+  },err=>{showNotif('⚠️ ไม่สามารถดึงตำแหน่งได้')});
+}
+function openMap(){if(currentLocation)window.open(`https://www.google.com/maps?q=${currentLocation.lat},${currentLocation.lng}`,'_blank')}
+
+// ══════════════════════════════════════
+// NOTIFICATIONS
+// ══════════════════════════════════════
+async function requestNotifPerm(){
+  if(!('Notification' in window)){showNotif('⚠️ เบราว์เซอร์ไม่รองรับ');return}
+  const perm=await Notification.requestPermission();
+  showNotif(perm==='granted'?'🔔 เปิด Notifications แล้ว!':'⚠️ ปฏิเสธ Notification');
+}
+
+// ══════════════════════════════════════
+// HEARTFALL ANIMATION
+// ══════════════════════════════════════
+function triggerHeartfall(){
+  const canvas=document.getElementById('heartfall-canvas');
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  canvas.style.display='block';
+  const ctx=canvas.getContext('2d');
+  const hearts=Array.from({length:30},()=>({
+    x:Math.random()*canvas.width,y:-20,
+    vy:2+Math.random()*3,vx:(Math.random()-.5)*2,
+    size:16+Math.random()*24,opacity:1,
+    emoji:['❤️','💕','💖','💗','🩷'][Math.floor(Math.random()*5)]
+  }));
+  function animHeart(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    let alive=false;
+    hearts.forEach(h=>{
+      h.y+=h.vy;h.x+=h.vx;h.opacity-=.005;
+      if(h.y<canvas.height&&h.opacity>0){alive=true;ctx.globalAlpha=h.opacity;ctx.font=h.size+'px serif';ctx.fillText(h.emoji,h.x,h.y)}
+    });
+    ctx.globalAlpha=1;
+    if(alive)requestAnimationFrame(animHeart);
+    else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none'}
+  }
+  requestAnimationFrame(animHeart);
+}
+
+function triggerMiniHearts(){
+  const btn=document.getElementById('love-btn');
+  const rect=btn.getBoundingClientRect();
+  for(let i=0;i<5;i++){
+    const span=document.createElement('span');
+    span.style.cssText=`position:fixed;left:${rect.left+rect.width/2+Math.random()*60-30}px;top:${rect.top}px;font-size:1.2rem;pointer-events:none;z-index:9999;animation:confettiFall 1.5s ease forwards`;
+    span.textContent=['❤️','💕','💖'][Math.floor(Math.random()*3)];
+    document.body.appendChild(span);
+    setTimeout(()=>span.remove(),1600);
+  }
+}
+
+// ══════════════════════════════════════
+// CONFETTI
+// ══════════════════════════════════════
+function triggerConfetti(){
+  const colors=['#e11d48','#a855f7','#f59e0b','#22c55e','#3b82f6','#fda4af'];
+  for(let i=0;i<20;i++){
+    const div=document.createElement('div');
+    div.className='confetti-piece';
+    div.style.cssText=`left:${Math.random()*100}vw;top:-10px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*.5}s;animation-duration:${2+Math.random()}s;transform:rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(div);
+    setTimeout(()=>div.remove(),3500);
+  }
+}
+
+// ══════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════
+function saveAppName(){const name=document.getElementById('app-name-inp').value.trim()||'For My Dear';document.getElementById('app-title').textContent=name;ls('appName',name);showNotif('✅ บันทึกชื่อแล้ว!')}
+function saveStartDate(){const d=document.getElementById('start-date-inp').value;if(d){ls('startDate',d);updateStats();showNotif('✅ บันทึกวันที่เริ่มคบแล้ว!')}}
+function toggleTheme(){const body=document.body;const isDark=body.style.background.includes('1a');body.style.background=isDark?'':'#1a1a2e';showNotif(isDark?'☀️ Light mode':'🌙 Dark mode')}
+function clearAll(){if(!confirm('⚠️ ล้างข้อมูลทั้งหมดจริงๆ ไหม?'))return;localStorage.clear();showNotif('🗑️ ล้างข้อมูลทั้งหมดแล้ว');setTimeout(()=>location.reload(),1500)}
+
+function loadSettings(){
+  const name=ls('appName')||'For My Dear';
+  document.getElementById('app-title').textContent=name;
+  document.getElementById('app-name-inp').value=name;
+  const sd=ls('startDate');
+  if(sd)document.getElementById('start-date-inp').value=sd;
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+window.onload=function(){
+  updateNavDate();setInterval(updateNavDate,60000);
+  updateStats();
+  randomMessage();
+  initStickers();
+  loadSettings();
+  loadHealth();
+  updatePeriodDisplay();
+  renderChecklist();
+  updateMoodChart();
+  renderPhotos();
+  renderBucketList();
+  renderNotes();
+  initCalc();
+  initWheel();
+  nextQuiz();
+  startCountdown();
+  updateStreak();
+
+  // Load saved ann date fields
+  const annDate=ls('annDate');const annLabel=ls('annLabel');
+  if(annDate)document.getElementById('ann-date').value=annDate;
+  if(annLabel)document.getElementById('ann-label').value=annLabel;
+
+  // Online status
+  document.getElementById('online-status-txt').textContent=navigator.onLine?'🟢 ออนไลน์':'🔴 ออฟไลน์';
+
+  // Close modals on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(m=>{
+    m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')});
+  });
+
+  console.log('💕 For My Dear — loaded!');
+};
+</script>
 </body>
 </html>
